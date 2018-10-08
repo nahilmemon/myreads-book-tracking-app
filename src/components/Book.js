@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
 
 class Book extends Component {
+  formatAuthors() {
+    let authorsArray = this.props.book.authors;
+    let authorsString = '';
+
+    if (authorsArray.length === 0) {
+      authorsString = 'No authors known'
+    } else if (authorsArray.length === 1) {
+      authorsString = authorsArray[0]
+    } else if (authorsArray.length === 2) {
+      authorsString = `${authorsArray[0]} and ${authorsArray[1]}`
+    } else {
+      for (let i=0; i<authorsArray.length-1; i++) {
+        authorsString += `${authorsArray[i]}, `;
+      }
+      authorsString += `and ${authorsArray[authorsArray.length-1]}`
+    }
+
+    return authorsString;
+  }
+
   render() {
     return (
       <li>
@@ -18,7 +38,7 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
-          <div className="book-authors">{this.props.book.authors}</div>
+          <div className="book-authors">{this.formatAuthors()}</div>
         </div>
       </li>
     );
