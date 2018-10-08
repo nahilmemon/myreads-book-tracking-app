@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BookShelf from './BookShelf.js';
+import Bookshelf from './Bookshelf.js';
 
 class Library extends Component {
   render() {
@@ -10,9 +10,9 @@ class Library extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf />
-            <BookShelf />
-            <BookShelf />
+            <Bookshelf />
+            <Bookshelf />
+            <Bookshelf />
           </div>
         </div>
         <div className="open-search">
