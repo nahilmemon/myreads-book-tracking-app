@@ -10,9 +10,27 @@ class Library extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Bookshelf />
-            <Bookshelf />
-            <Bookshelf />
+            <Bookshelf
+              title="Currently Reading"
+              shelf="currentlyReading"
+              books={this.props.books.filter((book) => (
+                book.shelf === "currentlyReading"
+              ))}
+            />
+            <Bookshelf
+              title="Want to Read"
+              shelf="wantToRead"
+              books={this.props.books.filter((book) => (
+                book.shelf === "wantToRead"
+              ))}
+            />
+            <Bookshelf
+              title="Read"
+              shelf="read"
+              books={this.props.books.filter((book) => (
+                book.shelf === "read"
+              ))}
+            />
           </div>
         </div>
         <div className="open-search">
