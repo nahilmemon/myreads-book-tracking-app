@@ -21,7 +21,9 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BookGrid />
+          <BookGrid
+            books={[]}
+          />
         </div>
       </div>
     );
