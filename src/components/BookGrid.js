@@ -9,6 +9,7 @@ class BookGrid extends Component {
           <Book
             key={book.id}
             book={book}
+            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
           />
         ))}
       </ol>

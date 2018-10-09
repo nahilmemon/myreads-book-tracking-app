@@ -16,6 +16,7 @@ class Library extends Component {
               books={this.props.books.filter((book) => (
                 book.shelf === "currentlyReading"
               ))}
+              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
             />
             <Bookshelf
               title="Want to Read"
@@ -23,6 +24,7 @@ class Library extends Component {
               books={this.props.books.filter((book) => (
                 book.shelf === "wantToRead"
               ))}
+              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
             />
             <Bookshelf
               title="Read"
@@ -30,6 +32,7 @@ class Library extends Component {
               books={this.props.books.filter((book) => (
                 book.shelf === "read"
               ))}
+              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
             />
           </div>
         </div>

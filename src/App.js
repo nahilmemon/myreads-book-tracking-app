@@ -25,13 +25,43 @@ class BooksApp extends React.Component {
     })
   }
 
+  // Change the shelf that a book (modifiedBook) is located on to the new
+  // shelf that the user clicked on
+  moveBookToNewShelf = (modifiedBook, event) => {
+    // Helper function to determine whether the modified book's id
+    // matches any given book's id
+    function findMatchingBookId(unmodifiedBook) {
+      return unmodifiedBook.id === modifiedBook.id;
+    }
+    // Find the index of the modifiedBook in state's books array
+    let modifiedBookIndex = this.state.books.findIndex(findMatchingBookId);
+
+    // The new shelf to move the modifiedBook onto should be the shelf
+    // that the user clicked on
+    let newShelf = event.target.value;
+
+    // Get the current books array from the state and change the shelf of
+    // the modifiedBook in this array
+    let newBooks = this.state.books;
+    newBooks[modifiedBookIndex].shelf = newShelf;
+
+    // Update the state with the newBooks array in order to reflect the
+    // modifiedBook's new shelf value
+    this.setState((state) => ({
+      books: newBooks
+    }));
+  }
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
           <SearchBooks />
         ) : (
-          <Library books={this.state.books} />
+          <Library
+            books={this.state.books}
+            onMoveBookToNewShelf={this.moveBookToNewShelf}
+          />
         )}
       </div>
     )

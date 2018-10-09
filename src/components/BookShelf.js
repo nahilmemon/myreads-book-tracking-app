@@ -9,6 +9,7 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <BookGrid
             books={this.props.books}
+            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
           />
         </div>
       </div>
