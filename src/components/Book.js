@@ -7,12 +7,16 @@ class Book extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired
   }
 
+  // Format the string displaying the names of the authors of the book
+  // according to how many authors were found
   formatAuthors() {
+    // Get the authors array
     let authorsArray = this.props.book.authors;
+    // To store the final, desired string displaying all the author names
     let authorsString = '';
 
-    if (authorsArray.length === 0) {
-      authorsString = 'No authors known'
+    if (authorsArray === undefined) {
+      authorsString = 'Unknown authors'
     } else if (authorsArray.length === 1) {
       authorsString = authorsArray[0]
     } else if (authorsArray.length === 2) {
