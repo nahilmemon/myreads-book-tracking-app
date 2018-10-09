@@ -12,6 +12,10 @@ class SearchBooks extends Component {
     bookResults: []
   }
 
+  static propTypes = {
+    onMoveBookToNewShelf: PropTypes.func.isRequired
+  }
+
   componentDidMount = () => {
     this.clearQuery();
   }

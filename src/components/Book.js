@@ -42,6 +42,14 @@ class Book extends Component {
   }
 
   render() {
+    // Determine which shelf the book is on
+    let shelf;
+    if (this.props.book.shelf === undefined) {
+      shelf = 'none';
+    } else {
+      shelf = this.props.book.shelf;
+    }
+
     return (
       <li>
         <div className="book">
@@ -49,7 +57,7 @@ class Book extends Component {
             <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.determineThumbnail()}")` }}></div>
             <div className="book-shelf-changer">
               <select
-                value={this.props.book.shelf}
+                value={shelf}
                 onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
               >
                 <option value="move" disabled>Move to...</option>

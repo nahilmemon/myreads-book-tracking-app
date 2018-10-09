@@ -40,7 +40,15 @@ class BooksApp extends React.Component {
     // Get the current books array from the state and change the shelf of
     // the modifiedBook in this array
     let newBooks = this.state.books;
-    newBooks[modifiedBookIndex].shelf = newShelf;
+    // If the book is already in newBooks, then modify the shelf
+    if (modifiedBookIndex !== -1) {
+      newBooks[modifiedBookIndex].shelf = newShelf;
+    }
+    // Otherwise, change the shelf and then add it to newBooks
+    else {
+      modifiedBook.shelf = newShelf;
+      newBooks.push(modifiedBook);
+    }
 
     // Update the server with the book's new shelf information
     BooksAPI.update(modifiedBook, newShelf)
@@ -78,7 +86,6 @@ class BooksApp extends React.Component {
         )}/>
         <Route path='/search' render={() => (
           <SearchBooks
-            books={this.state.books}
             onMoveBookToNewShelf={this.moveBookToNewShelf}
           />
         )}/>
