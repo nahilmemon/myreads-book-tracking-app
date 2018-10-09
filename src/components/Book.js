@@ -31,12 +31,22 @@ class Book extends Component {
     return authorsString;
   }
 
+  // Determine the thumbnail URL. If the book doesn't have one, then
+  // use a default missing cover thumbnail image.
+  determineThumbnail() {
+    if (this.props.book.imageLinks && this.props.book.imageLinks.smallThumbnail) {
+      return `${this.props.book.imageLinks.smallThumbnail}`;
+    } else {
+      return `${process.env.PUBLIC_URL + '/images/missing-thumbnail.PNG'}`;
+    }
+  }
+
   render() {
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.props.book.imageLinks.smallThumbnail}")` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.determineThumbnail()}")` }}></div>
             <div className="book-shelf-changer">
               <select
                 value={this.props.book.shelf}
