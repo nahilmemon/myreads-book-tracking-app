@@ -14,7 +14,7 @@ class SearchBooks extends Component {
 
   // Update the state's query and trigger a book search if the query isn't empty
   updateQuery = (query) => {
-    // Change the state's query vaue to match the given query
+    // Change the state's query value to match the given query
     this.setState({
       query: query
     });
@@ -41,10 +41,20 @@ class SearchBooks extends Component {
     // Fetch all the books using the API
     BooksAPI.search(query)
       // Update the state with the retrieved books array
-      .then((books) => {
-        this.setState({
-          bookResults: books
-        });
+      .then((results) => {
+        // If results were found, then change the bookResults array to match
+        // the results found
+        if (results.length) {
+          this.setState({
+            bookResults: results
+          });
+        }
+        // Else empty the bookResults array to indicate no results found
+        else {
+          this.setState({
+            bookResults: []
+          });
+        }
       })
       // Catch any errors during the process
       .catch((err) => {
