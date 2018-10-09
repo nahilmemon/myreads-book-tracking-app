@@ -1,6 +1,6 @@
-import React from 'react'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
+import React from 'react';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
 import Library from './components/Library.js';
 import SearchBooks from './components/SearchBooks.js';
 
