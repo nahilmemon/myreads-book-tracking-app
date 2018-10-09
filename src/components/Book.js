@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as BooksAPI from '../BooksAPI';
 
 class Book extends Component {
+  state = {
+    shelf: ''
+  }
+
   static propTypes = {
     book: PropTypes.object.isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired
+  }
+
+  componentDidMount() {
+    BooksAPI.get(this.props.book.id)
+      .then((results) => {
+        this.setState({
+          shelf: results.shelf
+        });
+      });
   }
 
   // Format the string displaying the names of the authors of the book
@@ -43,11 +57,11 @@ class Book extends Component {
 
   render() {
     // Determine which shelf the book is on
-    let shelf;
-    if (this.props.book.shelf === undefined) {
-      shelf = 'none';
+    let shelfValue;
+    if (this.state.shelf === undefined) {
+      shelfValue = 'none';
     } else {
-      shelf = this.props.book.shelf;
+      shelfValue = this.state.shelf;
     }
 
     return (
@@ -57,7 +71,7 @@ class Book extends Component {
             <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.determineThumbnail()}")` }}></div>
             <div className="book-shelf-changer">
               <select
-                value={shelf}
+                value={shelfValue}
                 onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
               >
                 <option value="move" disabled>Move to...</option>
