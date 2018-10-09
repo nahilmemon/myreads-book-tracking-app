@@ -30,11 +30,6 @@ class SearchBooks extends Component {
     }
   }
 
-  // Clear the state's query value
-  clearQuery = () => {
-    this.setState({ query: '' })
-  }
-
   // Use the BooksAPI to search for books matching the given query.
   // Update the state's bookResults array with the results found.
   searchBooks = (query) => {
@@ -63,6 +58,25 @@ class SearchBooks extends Component {
   }
 
   render() {
+    // Determine what to display in the search results based on the query and
+    // the bookResults found
+    let searchResults;
+    // Case 1: the user searched for something and search results were found
+    if (this.state.bookResults.length) {
+      searchResults = (<BookGrid
+        books={this.state.bookResults}
+        onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+      />);
+    }
+    // Case 2: the user searched for something and no search results were found
+    else if (this.state.query !== '') {
+      searchResults = <p className="no-search-results-message">No results found</p>;
+    }
+    // Case 3: the user didn't search for anything
+    else {
+      searchResults = '';
+    }
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -88,10 +102,7 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BookGrid
-            books={this.state.bookResults}
-            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-          />
+          {searchResults}
         </div>
       </div>
     );
