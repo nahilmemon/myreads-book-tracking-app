@@ -5,7 +5,7 @@ import Bookshelf from './Bookshelf.js';
 
 class Library extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    books: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired
   }
 

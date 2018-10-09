@@ -4,7 +4,7 @@ import BookGrid from './BookGrid.js';
 
 class Bookshelf extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    books: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     shelf: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
