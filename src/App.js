@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
 
   // Change the shelf that a book (modifiedBook) is located on to the new
   // shelf that the user clicked on
-  moveBookToNewShelf = (modifiedBook, event) => {
+  moveBookToNewShelf = (modifiedBook, newShelf) => {
     // Helper function to determine whether the modified book's id
     // matches any given book's id
     function findMatchingBookId(unmodifiedBook) {
@@ -36,20 +36,34 @@ class BooksApp extends React.Component {
     // Find the index of the modifiedBook in state's books array
     let modifiedBookIndex = this.state.books.findIndex(findMatchingBookId);
 
-    // The new shelf to move the modifiedBook onto should be the shelf
-    // that the user clicked on
-    let newShelf = event.target.value;
-
     // Get the current books array from the state and change the shelf of
     // the modifiedBook in this array
     let newBooks = this.state.books;
     newBooks[modifiedBookIndex].shelf = newShelf;
 
-    // Update the state with the newBooks array in order to reflect the
-    // modifiedBook's new shelf value
-    this.setState((state) => ({
-      books: newBooks
-    }));
+    // Update the server with the book's new shelf information
+    BooksAPI.update(modifiedBook, newShelf)
+      // Then update the state with the newBooks array in order to reflect the
+      // modifiedBook's new shelf value
+      // Note #1: I could alternatively do this:
+        // .then(() => (BooksAPI.getAll()))
+        // and not do any of the above code either
+        // but since the user can only change one book at a time,
+        // and taking into consideration that the user might have a very long
+        // list of books in his/her library, doing the following manually is
+        // probably much faster then getting all the books from the API
+      // Note #2: I'm setting the state after BooksAPI.update() to ensure that
+        // the shelf changes persist instead of beforehand in case there was an
+        // error updating the book in the server.
+      .then((books) => {
+        this.setState((state) => ({
+          books: newBooks
+        }));
+      })
+      // Catch any errors during the process
+      .catch((err) => {
+        console.log('Error in updating: ', err)
+      });
   }
 
   render() {
