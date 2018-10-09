@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf.js';
 
 class Library extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onMoveBookToNewShelf: PropTypes.func.isRequired
+  }
+
   render() {
     return (
       <div className="list-books">
