@@ -20,9 +20,16 @@ class BooksApp extends React.Component {
   // Fetch all the books saved in the user's library and update the state
   // with these results
   componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books: books })
-    })
+    // Fetch all the books using the API
+    BooksAPI.getAll()
+      // Update the state with the retrived books array
+      .then((books) => {
+        this.setState({ books: books })
+      })
+      // Catch any errors during the process
+      .catch((err) => {
+        console.log('Error in updating: ', err)
+      });
   }
 
   // Change the shelf that a book (modifiedBook) is located on to the new
