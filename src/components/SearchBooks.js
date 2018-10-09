@@ -12,6 +12,10 @@ class SearchBooks extends Component {
     bookResults: []
   }
 
+  componentDidMount = () => {
+    this.clearQuery();
+  }
+
   // Update the state's query and trigger a book search if the query isn't empty
   updateQuery = (query) => {
     // Change the state's query value to match the given query
@@ -28,6 +32,14 @@ class SearchBooks extends Component {
         bookResults: []
       });
     }
+  }
+
+  // Clear the state's query value
+  clearQuery = () => {
+    this.setState({
+      query: '',
+      bookResults: []
+    });
   }
 
   // Use the BooksAPI to search for books matching the given query.
