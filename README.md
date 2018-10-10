@@ -136,3 +136,5 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 * [Create React App](https://github.com/facebook/create-react-app)
 * [prop-types npm package](https://www.npmjs.com/package/prop-types)
 * [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
+* [Modal effects tutorial](https://tympanus.net/Development/ModalWindowEffects/)
+* [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)

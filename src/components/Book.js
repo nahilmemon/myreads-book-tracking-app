@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
+import BookModal from './BookModal.js';
 
 class Book extends Component {
   state = {
-    shelf: ''
+    shelf: '',
+    shouldShowModal: false
   }
 
   static propTypes = {
@@ -20,6 +22,14 @@ class Book extends Component {
           shelf: results.shelf
         });
       });
+  }
+
+  showModal = () => {
+    this.setState({ shouldShowModal: true });
+  }
+
+  hideModal = () => {
+    this.setState({ shouldShowModal: false });
   }
 
   // Format the string displaying the names of the authors of the book
@@ -84,6 +94,9 @@ class Book extends Component {
 
     return (
       <li>
+        <button type="button" onClick={this.showModal}>
+          open
+        </button>
         <div className="book">
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.determineThumbnail()}")` }}></div>
@@ -104,6 +117,12 @@ class Book extends Component {
           <div className="book-title">{this.props.book.title}</div>
           <div className="book-authors">{this.formatAuthors()}</div>
         </div>
+        <BookModal
+          show={this.state.shouldShowModal}
+          handleCloseModal={this.hideModal}>
+          <p>Modal</p>
+          <p>Data</p>
+        </BookModal>
       </li>
     );
   }
