@@ -9,7 +9,8 @@ class Book extends Component {
 
   static propTypes = {
     book: PropTypes.object.isRequired,
-    onMoveBookToNewShelf: PropTypes.func.isRequired
+    onMoveBookToNewShelf: PropTypes.func.isRequired,
+    displayShelfIcon: PropTypes.bool.isRequired
   }
 
   componentDidMount() {
@@ -63,6 +64,23 @@ class Book extends Component {
     } else {
       shelfValue = this.state.shelf;
     }
+    // Determine whether to display the shelf icon, and if so,
+    // determine which icon to display.
+    let shelfIcon;
+    if (this.props.displayShelfIcon === true) {
+      if (this.state.shelf === 'currentlyReading') {
+        shelfIcon = <div className="book-shelf-icon">C</div>;
+      } else if (this.state.shelf === 'wantToRead') {
+        shelfIcon = <div className="book-shelf-icon">W</div>;
+      } else if (this.state.shelf === 'read') {
+        shelfIcon = <div className="book-shelf-icon">R</div>;
+      } else {
+        shelfIcon = '';
+      }
+    } else {
+      shelfIcon = '';
+    }
+
 
     return (
       <li>
@@ -81,6 +99,7 @@ class Book extends Component {
                 <option value="none">None</option>
               </select>
             </div>
+            {shelfIcon}
           </div>
           <div className="book-title">{this.props.book.title}</div>
           <div className="book-authors">{this.formatAuthors()}</div>

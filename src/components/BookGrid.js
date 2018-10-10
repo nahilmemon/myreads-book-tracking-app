@@ -5,7 +5,8 @@ import Book from './Book.js';
 class BookGrid extends Component {
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.object),
-    onMoveBookToNewShelf: PropTypes.func.isRequired
+    onMoveBookToNewShelf: PropTypes.func.isRequired,
+    displayShelfIcon: PropTypes.bool.isRequired
   }
 
   render() {
@@ -16,6 +17,7 @@ class BookGrid extends Component {
             key={book.id}
             book={book}
             onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+            displayShelfIcon={this.props.displayShelfIcon}
           />
         ))}
       </ol>

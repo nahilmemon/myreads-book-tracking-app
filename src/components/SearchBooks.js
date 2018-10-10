@@ -9,7 +9,8 @@ import BookGrid from './BookGrid.js';
 class SearchBooks extends Component {
   state = {
     query: '',
-    bookResults: []
+    bookResults: [],
+    displayShelfIcon: true
   }
 
   static propTypes = {
@@ -82,6 +83,7 @@ class SearchBooks extends Component {
       searchResults = (<BookGrid
         books={this.state.bookResults}
         onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+        displayShelfIcon={this.state.displayShelfIcon}
       />);
     }
     // Case 2: the user searched for something and no search results were found

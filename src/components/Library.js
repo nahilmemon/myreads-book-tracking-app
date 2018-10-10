@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf.js';
 
 class Library extends Component {
+  state = {
+    displayShelfIcon: false
+  }
+
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired
@@ -24,6 +28,7 @@ class Library extends Component {
                 book.shelf === "currentlyReading"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              displayShelfIcon={this.state.displayShelfIcon}
             />
             <Bookshelf
               title="Want to Read"
@@ -32,6 +37,7 @@ class Library extends Component {
                 book.shelf === "wantToRead"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              displayShelfIcon={this.state.displayShelfIcon}
             />
             <Bookshelf
               title="Read"
@@ -40,6 +46,7 @@ class Library extends Component {
                 book.shelf === "read"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              displayShelfIcon={this.state.displayShelfIcon}
             />
           </div>
         </div>
