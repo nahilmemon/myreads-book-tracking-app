@@ -1,20 +1,126 @@
-html, body, .root {
+/* ====================== All Pages ====================== */
+html,
+body,
+.root {
   height: 100%;
 }
+
 body {
   line-height: 1.5;
 }
-body, .app {
+
+body,
+.app {
   background: white;
 }
 
-/* main page */
+/* ====================== CSS Variables ====================== */
+:root {
+  --primary-color: #5c6bc0;
+  --primary-light-color: #8e99f3;
+  --primary-dark-color: #26418f;
+  --secondary-color: #dedede;
+  --secondary-light-color: #fff;
+  --secondary-dark-color: #000;
+}
 
+/* ====================== Typography ====================== */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size-adjust: 0.5;
+}
+
+body,
+td,
+th,
+p,
+ul,
+li {
+  font: 1em/1.25 'Montserrat', sans-serif;
+  color: var(--secondary-dark-color);
+}
+
+body {
+  background-color: #fdfdfd;
+  margin: 0;
+  position: relative;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 1.625em;
+  line-height: 1.15384615;
+}
+
+h3 {
+  font-size: 1.375em;
+  line-height: 1.13636364;
+}
+
+h4 {
+  font-size: 1.125em;
+  line-height: 1.11111111;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1em;
+    line-height: 1.375;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.125;
+  }
+
+  h2 {
+    font-size: 2em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1.25;
+  }
+
+  h4 {
+    line-height: 1.22222222;
+  }
+}
+
+@media (min-width: 992px) {
+  h1 {
+    font-size: 3em;
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: 2.25em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.75em;
+    line-height: 1.25;
+  }
+}
+
+/* ====================== Main Page ====================== */
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: var(--primary-color);
   text-align: center;
 }
+
 .list-books-title h1 {
   font-weight: 400;
   margin: 0;
@@ -26,34 +132,18 @@ body, .app {
   flex: 1;
 }
 
-.bookshelf {
-  padding: 0 10px 20px;
-}
-
-@media (min-width: 600px) {
-  .bookshelf {
-    padding: 0 20px 40px;
-  }
-}
-
-.bookshelf-title {
-  border-bottom: 1px solid #dedede;
-}
-.bookshelf-books {
-  text-align: center;
-}
-
 .open-search {
   position: fixed;
   right: 25px;
   bottom: 25px;
 }
+
 .open-search a {
   display: block;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: var(--primary-dark-color);
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -62,8 +152,7 @@ body, .app {
   font-size: 0;
 }
 
-/* search page */
-
+/* ====================== Search Page ====================== */
 .search-books-bar {
   position: fixed;
   width: 100%;
@@ -73,16 +162,23 @@ body, .app {
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
 }
+
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  background: var(--secondary-light-color);
 }
+
 .search-books-bar input {
   width: 100%;
   padding: 15px 10px;
   font-size: 1.25em;
   border: none;
   outline: none;
+  color: var(--primary-dark-color);
+}
+
+.search-books-bar input::placeholder {
+  color: var(--primary-color);
 }
 
 .close-search {
@@ -108,8 +204,27 @@ body, .app {
   font-size: 1.25em;
 }
 
-/* books grid */
+/* ====================== Bookshelf ====================== */
+.bookshelf {
+  padding: 0 10px 20px;
+}
 
+@media (min-width: 600px) {
+  .bookshelf {
+    padding: 0 20px 40px;
+  }
+}
+
+.bookshelf-title {
+  border-bottom: 1px solid var(--secondary-color);
+  color: var(--primary-dark-color);
+}
+
+.bookshelf-books {
+  text-align: center;
+}
+
+/* ====================== Book Grid ====================== */
 .books-grid {
   list-style-type: none;
   padding: 0;
@@ -119,23 +234,25 @@ body, .app {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .books-grid li {
   padding: 10px 15px;
   text-align: left;
 }
 
+/* ====================== Book ====================== */
 .book {
   width: 140px;
 }
-.book-title,
-.book-authors {
-  font-size: 0.8em;
-}
+
 .book-title {
   margin-top: 10px;
+  color: var(--secondary-dark-color);
+  font-weight: 500;
 }
+
 .book-authors {
-  color: #999;
+  color: var(--primary-color);
 }
 
 .book-top {
@@ -152,13 +269,14 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: var(--primary-color);
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+
 .book-shelf-changer select {
   width: 100%;
   height: 100%;
@@ -166,12 +284,11 @@ body, .app {
   cursor: pointer;
 }
 
-/* book cover */
-
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  background: #eee;
+  background: var(--secondary-color);
 }
+
 .book-cover-title {
   padding: 20px 10px 0;
   text-align: center;
