@@ -1,43 +1,93 @@
-# MyReads Project
+# MyReads Book Tracking App
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+## Table of Contents
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+* [Description](#description)
+* [How to Run the Web App](#how-to-run-the-web-app)
+* [Minimum Requirements](#minimum-requirements)
+* [Extra Features](#extra-features)
+* [Project Structure](#project-structure)
+* [Backend Server](#backend-server)
+* [Resources Used](#resources-used)
 
-## TL;DR
+## Description
 
-To get started developing right away:
+This is a book tracking app that lets you choose books and categorize them onto different shelves: read, want to read, and currently reading. This project was built using the React framework. An [API and client library]( https://github.com/udacity/reactnd-project-myreads-starter) was provided to help persist information as the user interacts with the app.
 
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+## How to Run the Web App
 
-## What You're Getting
+1. Download the repository.
+2. Open a command prompt terminal and cd (change into the directory) where the repository has been saved.
+3. Install all the needed npm dependencies using the following command:
+    * `npm install`
+    * Note: node.js can be downloaded [here](https://nodejs.org/en/download/) and npm can subsequently be installed using the instructions found [here](https://www.npmjs.com/get-npm)
+4. Start the development server using the following command:
+    * `npm start`
+5. While the server is running in the background, browse the website at: [http://localhost:3000](http://localhost:3000)
+
+## Minimum Requirements
+
+The minimum requirements of this project involved:
+* Ensuring that the application is easy to install and start.
+* Writing a README with easy to understand instructions on how to install and start the project.
+* Creating a main page with the following features:
+  * Three shelves to display books on: read, want to read, and currently reading.
+  * Books with their corresponding titles and authors and placed on the correct shelves.
+  * The ability to move books from one shelf to another.
+  * The information for each book remains the same even after a browser refresh.
+* Creating a search page with the following features:
+  * A search input field in which the user can search books by author or title.
+  * Search results are cleared when the search input becomes empty.
+  * Proper handling of search results when given invalid search queries.
+  * Properly display books with partially missing information such as missing book cover thumbnails or missing authors.
+  * The ability to search multiple words at a time.
+* Setting up routing, which involved:
+  * Setting up a link from the main page to the search page.
+    * Ensuring that clicking this link displays the search page and changes the URL in the browser’s address bar to /search.
+  * Setting up a link from the search page to the main page.
+    * Ensuring that clicking this link displays the main page and changes the URL in the browser’s address bar to /.
+* Managing state properly by:
+  * Ensuring that component state is properly passed down so that child components inherit state from parent components.
+  * Modifying state by using `setState()` instead of by modifying it directly.
+  * Ensuring that books have the same state on the main page and the search page, especially with regards to which shelves they’re located on.
+
+## Extra Features
+
+Extra features that were added to the web app included:
+* TBD
+
+## Project Structure
 ```bash
-├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
-├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
+├── SEARCH_TERMS.md # The whitelisted short collection of available search terms to use with this app.
+├── package.json # npm package manager file.
+├── package-lock.json # npm package manager file.
 ├── public
-│   ├── favicon.ico # React Icon, You may change if you wish.
-│   └── index.html # DO NOT MODIFY
+│   ├── favicon.ico
+│   └── index.html
+│   └── images
 └── src
-    ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
+    ├── App.css # Styles for the app.
+    ├── App.js # Root of the app.
+    ├── App.test.js # Used for testing.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
-    ├── icons # Helpful images for your app. Use at your discretion.
+    ├── components # Contains all custom components for building this app.
+    │   ├── Book.js
+    │   ├── BookGrid.js
+    │   └── Bookshelf.js
+    │   └── Library.js
+    │   └── SearchBooks.js
+    ├── icons # Helpful images for the app.
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
-    ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── index.css # Global styles.
+    └── index.js # Used or DOM rendering.
 ```
-
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
 
 ## Backend Server
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+A [backend server](https://reactnd-books-api.udacity.com) was provided by Udacity to work with for this project. The [`BooksAPI.js`](src/BooksAPI.js) file was also provided and it contains the methods that were needed to perform necessary operations on the backend:
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -52,7 +102,7 @@ getAll()
 ```
 
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
+* This collection represents the books currently in the bookshelves in the app.
 
 ### `update`
 
@@ -63,7 +113,7 @@ update(book, shelf)
 ```
 
 * book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
+* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
 * Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
 ### `search`
@@ -76,17 +126,13 @@ search(query)
 
 * query: `<String>`
 * Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
+* These books do not know which shelf they are on. They are raw results only.
 
-## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+### Important
+The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend provided.
 
-## Create React App
+## Resources Used
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+* [Create React App](https://github.com/facebook/create-react-app)
+* [prop-types npm package](https://www.npmjs.com/package/prop-types)
+* [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
