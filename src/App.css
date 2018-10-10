@@ -175,10 +175,12 @@ h4 {
   border: none;
   outline: none;
   color: var(--primary-dark-color);
+  font-family: Montserrat, sans-serif;
 }
 
 .search-books-bar input::placeholder {
   color: var(--primary-color);
+  font-family: Montserrat, sans-serif;
 }
 
 .close-search {
