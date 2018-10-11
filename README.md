@@ -136,5 +136,7 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 * [Create React App](https://github.com/facebook/create-react-app)
 * [prop-types npm package](https://www.npmjs.com/package/prop-types)
 * [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
-* [Modal effects tutorial](https://tympanus.net/Development/ModalWindowEffects/)
+* [Modal Window Effects](https://tympanus.net/Development/ModalWindowEffects/)
 * [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)
+* [Building an accessible Modal component with React Portals](https://assortment.io/posts/accessible-modal-component-react-portals-part-1)
+* [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)

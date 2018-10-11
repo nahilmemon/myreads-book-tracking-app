@@ -1,3 +1,9 @@
+/* Note: Modal CSS and JS inspired by
+  - https://tympanus.net/Development/ModalWindowEffects/
+  - https://alligator.io/react/modal-component/
+  - https://assortment.io/posts/accessible-modal-component-react-portals-part-1
+  - https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog
+*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -60,10 +66,14 @@ export class BookModal extends Component {
     });
   }
 
-
-
   render() {
-    const showHideClassName = this.props.show ? "modal modal-effect modal-show" : "modal modal-effect";
+    // Determine whether to show modal using CSS
+    let showHideClassName;
+    if (this.props.show) {
+      showHideClassName = "modal modal-effect modal-show";
+    } else {
+      showHideClassName = "modal modal-effect";
+    }
 
     return ReactDOM.createPortal(
       (<div

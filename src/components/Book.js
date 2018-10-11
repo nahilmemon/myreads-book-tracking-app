@@ -1,3 +1,9 @@
+/* Note: Modal CSS and JS inspired by
+  - https://tympanus.net/Development/ModalWindowEffects/
+  - https://alligator.io/react/modal-component/
+  - https://assortment.io/posts/accessible-modal-component-react-portals-part-1
+  - https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog
+*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
