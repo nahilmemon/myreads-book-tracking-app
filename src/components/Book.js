@@ -12,7 +12,8 @@ import BookModal from './BookModal.js';
 class Book extends Component {
   state = {
     shelf: '',
-    shouldShowModal: false
+    shouldShowModal: false,
+    isShelfDropdownFocused: false
   }
 
   static propTypes = {
@@ -28,6 +29,15 @@ class Book extends Component {
           shelf: results.shelf
         });
       });
+  }
+
+  // Toggle shelf dropdown focus state and thus focus styling
+  toggleShelfDropdownFocus = () => {
+    if (this.state.isShelfDropdownFocused === true) {
+      this.setState({ isShelfDropdownFocused: false });
+    } else {
+      this.setState({ isShelfDropdownFocused: true });
+    }
   }
 
   // Toggle the ability to scroll the page content
@@ -141,11 +151,14 @@ class Book extends Component {
                 backgroundImage: `url("${this.determineThumbnail()}")`
               }}
             ></button>
-            <div className="book-shelf-changer">
+            <div
+              className={this.state.isShelfDropdownFocused ? 'book-shelf-changer focus-book-shelf-changer' : 'book-shelf-changer'}
+              ref={node => this.shelfDropdownParent = node}>
               <select
                 value={shelfValue}
                 onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
-              >
+                onFocus={this.toggleShelfDropdownFocus}
+                onBlur={this.toggleShelfDropdownFocus}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
