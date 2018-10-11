@@ -136,41 +136,39 @@ class Book extends Component {
     }
 
     return (
-      <li>
-        <div className="book">
-          <div className="book-top">
-            <button
-              type="button"
-              onClick={this.showModal}
-              ref={node => this.openModalButton = node}
-              aria-label=""
-              className="book-cover"
-              style={{
-                width: 128,
-                height: 192,
-                backgroundImage: `url("${this.determineThumbnail()}")`
-              }}
-            ></button>
-            <div
-              className={this.state.isShelfDropdownFocused ? 'book-shelf-changer focus-book-shelf-changer' : 'book-shelf-changer'}
-              ref={node => this.shelfDropdownParent = node}>
-              <select
-                value={shelfValue}
-                onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
-                onFocus={this.toggleShelfDropdownFocus}
-                onBlur={this.toggleShelfDropdownFocus}>
-                <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-            {shelfIcon}
+      <li className="book">
+        <div className="book-top">
+          <button
+            type="button"
+            onClick={this.showModal}
+            ref={node => this.openModalButton = node}
+            aria-label=""
+            className="book-cover"
+            style={{
+              width: 128,
+              height: 192,
+              backgroundImage: `url("${this.determineThumbnail()}")`
+            }}
+          ></button>
+          <div
+            className={this.state.isShelfDropdownFocused ? 'book-shelf-changer focus-book-shelf-changer' : 'book-shelf-changer'}
+            ref={node => this.shelfDropdownParent = node}>
+            <select
+              value={shelfValue}
+              onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
+              onFocus={this.toggleShelfDropdownFocus}
+              onBlur={this.toggleShelfDropdownFocus}>
+              <option value="move" disabled>Move to...</option>
+              <option value="currentlyReading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+              <option value="read">Read</option>
+              <option value="none">None</option>
+            </select>
           </div>
-          <div className="book-title">{this.props.book.title}</div>
-          <div className="book-authors">{this.formatAuthors()}</div>
+          {shelfIcon}
         </div>
+        <p className="book-title">{this.props.book.title}</p>
+        <p className="book-authors">{this.formatAuthors()}</p>
         {modal}
       </li>
     );

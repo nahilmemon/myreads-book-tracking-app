@@ -96,11 +96,12 @@ class SearchBooks extends Component {
     }
 
     return (
-      <div className="search-books">
-        <div className="search-books-bar">
+      <main className="search-books">
+        <form role="search" className="search-books-bar">
           <Link
             to='/'
             className="close-search"
+            aria-label="Go back to main page"
           >Close Search</Link>
           <div className="search-books-input-wrapper">
             {/*
@@ -112,17 +113,17 @@ class SearchBooks extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */}
             <input
-              type="text"
-              placeholder="Search by title or author"
+              type="search"
+              placeholder="Search books by title or author"
               value={this.state.query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
-        </div>
-        <div className="search-books-results">
+        </form>
+        <section className="search-books-results" aria-label="Search Results">
           {searchResults}
-        </div>
-      </div>
+        </section>
+      </main>
     );
   }
 }

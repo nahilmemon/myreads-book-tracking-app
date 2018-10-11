@@ -15,12 +15,12 @@ class Library extends Component {
 
   render() {
     return (
-      <div className="list-books">
+      <main className="list-books">
+        <a href="searchButtonContainer" className="skip-link">Skip to Add Books Button</a>
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          <div>
             <Bookshelf
               title="Currently Reading"
               shelf="currentlyReading"
@@ -48,14 +48,13 @@ class Library extends Component {
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
               displayShelfIcon={this.state.displayShelfIcon}
             />
-          </div>
         </div>
-        <div className="open-search">
+        <div className="open-search" id="searchButtonContainer">
           <Link
             to="/search"
           >Add a book</Link>
         </div>
-      </div>
+      </main>
     );
   }
 }

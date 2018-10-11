@@ -140,6 +140,22 @@ h4 {
 }
 
 /* ====================== Main Page ====================== */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--secondary-light-color);
+  color: var(--primary-color);
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+  box-shadow: 0px 0px 0px 2px rgba(92, 107, 192, 1);
+  transition: all 0.25s ease-in-out;
+}
+
 .list-books-title {
   padding: 10px 0;
   background: var(--primary-color);
@@ -307,7 +323,12 @@ h4 {
 
 /* ====================== Book ====================== */
 .book {
-  width: 140px;
+  width: 170px;
+}
+
+.book-title,
+.book-authors {
+  margin: 0;
 }
 
 .book-title {
