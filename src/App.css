@@ -15,6 +15,21 @@ body,
   background: white;
 }
 
+a {
+  color: var(--primary-color);
+}
+
+a:visited {
+  color: var(--primary-dark-color);
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px rgba(38, 65, 143, 1);
+  transition: all 0.25s ease-in-out;
+}
+
 /* ====================== CSS Variables ====================== */
 :root {
   --primary-color: #5c6bc0;
@@ -200,18 +215,43 @@ h4 {
   font-family: Montserrat, sans-serif;
 }
 
+.search-books-bar input:hover,
+.search-books-bar input:focus {
+  box-shadow: inset 0px 0px 0px 3px rgba(38, 65, 143, 1);
+  outline: none;
+  transition: all 0.25s ease-in-out;
+}
+
 .close-search {
   display: block;
   top: 20px;
   left: 15px;
   width: 50px;
   height: 53px;
-  background: white;
+  background: var(--secondary-light-color);
   background-image: url('./icons/arrow-back.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px;
   font-size: 0;
+  transition: all 0.25s ease-in-out;
+}
+
+.close-search:hover,
+.close-search:focus {
+  outline: none;
+  display: block;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: 53px;
+  background: var(--primary-dark-color);
+  background-image: url('./icons/arrow-back-inverted.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+  transition: all 0.25s ease-in-out;
 }
 
 .search-books-results {
@@ -345,7 +385,9 @@ h4 {
   overflow: hidden;
 }
 
-.book-cover:hover {
+.book-cover:hover,
+.book-cover:focus {
+  outline: none;
   transform: scale(1.02);
   box-shadow: inset 0 0 0 1000px rgba(38, 65, 143, 0.75), 0 3px 6px rgba(38, 65, 143, 0.16), 0 3px 6px rgba(38, 65, 143, 0.23);
 }
@@ -362,7 +404,8 @@ h4 {
   opacity: 0;
 }
 
-.book-cover:hover:before {
+.book-cover:hover:before,
+.book-cover:focus:before {
   opacity: 1;
 }
 
@@ -482,12 +525,22 @@ h4 {
   border: none;
   cursor: pointer;
   font: inherit;
-  color: white;
+  color: var(--secondary-light-color);
   position: absolute;
   right: 0;
   top: 0;
-  padding: 0.3333em;
-  font-size: 1.5em;
+  font-size: 2.5em;
+  min-width: 48px;
+  min-height: 48px;
+  transition: all 0.25s ease-in-out;
+}
+
+.button-close-modal:hover,
+.button-close-modal:focus {
+  outline: none;
+  color: var(--primary-dark-color);
+  background-color: var(--secondary-light-color);
+  transition: all 0.25s ease-in-out;
 }
 
 /* Modal Body */
