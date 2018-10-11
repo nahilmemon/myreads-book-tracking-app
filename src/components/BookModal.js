@@ -3,8 +3,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 export class BookModal extends Component {
+  state = {
+    firstTabStopInModal: '',
+    lastTabStopInModal: ''
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDownEvent);
+    this.findFocusableElementsWithinModal();
   }
 
   componentWillUnmount() {
@@ -12,10 +18,49 @@ export class BookModal extends Component {
   }
 
   handleKeyDownEvent = (event) => {
+    console.log(event);
+    // Close the modal if the user presses the ESCAPE key
     if (event.key === 'Escape') {
       this.props.handleCloseModal();
     }
+
+    // Trap the focus within the modal if the user presses
+    // the TAB or SHIFT + TAB keys
+    if (event.key === "Tab") {
+      // Case: SHIFT + TAB keys
+      if (event.shiftKey) {
+        if (document.activeElement === this.state.firstTabStopInModal) {
+          event.preventDefault();
+          this.state.lastTabStopInModal.focus();
+        }
+      // Case: TAB key
+      } else {
+        if (document.activeElement === this.state.lastTabStopInModal) {
+          event.preventDefault();
+          this.state.firstTabStopInModal.focus();
+        }
+      }
+    }
   }
+
+  // Find all the focusable elements within the modal
+  findFocusableElementsWithinModal() {
+    // Find all focusable children
+    let potentiallyFocusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    let focusableElementsWithinModal = this.modalRef.querySelectorAll(potentiallyFocusableElementsString);
+    // Convert NodeList to Array
+    focusableElementsWithinModal = Array.prototype.slice.call(focusableElementsWithinModal);
+
+    let firstTabStopInModal = focusableElementsWithinModal[0];
+    let lastTabStopInModal = focusableElementsWithinModal[focusableElementsWithinModal.length - 1];
+
+    this.setState({
+      firstTabStopInModal: firstTabStopInModal,
+      lastTabStopInModal: lastTabStopInModal
+    });
+  }
+
+
 
   render() {
     const showHideClassName = this.props.show ? "modal modal-effect modal-show" : "modal modal-effect";
@@ -29,7 +74,8 @@ export class BookModal extends Component {
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-heading"
-          className={showHideClassName}>
+          className={showHideClassName}
+          ref={node => this.modalRef = node}>
           {/* Modal Contents */}
           <div className="modal-content">
             {/* Header */}
@@ -38,6 +84,7 @@ export class BookModal extends Component {
                 aria-label="Close Modal"
                 className="button-close-modal"
                 onClick={this.props.handleCloseModal}
+                ref={closeModalButton => closeModalButton && closeModalButton.focus()}
               >×</button>
               <h2
                 className="modal-heading"
@@ -47,9 +94,9 @@ export class BookModal extends Component {
             {/* Body */}
             <div className="modal-body">
               <h3 className="modal-subheading">Story</h3>
-              <p>Blabbibity bla...</p>
+              <a href="#">Blabbibity bla...</a>
               <h3 className="modal-subheading">How to Play</h3>
-              <p>More bla...</p>
+              <a href="#">More bla...</a>
             </div>
           </div>
         </section>

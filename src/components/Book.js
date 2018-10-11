@@ -33,12 +33,17 @@ class Book extends Component {
   showModal = () => {
     this.setState({ shouldShowModal: true });
     this.toggleScrollingAbility();
+    // Hide background content from screen readers that don't support aria-modal
+    document.querySelector('#root').setAttribute('aria-hidden', true);
   }
 
   // Hide the modal and enable scrolling the background
   hideModal = () => {
     this.setState({ shouldShowModal: false });
+    this.openModalButton.focus();
     this.toggleScrollingAbility();
+    // Reveal background content to screen readers that don't support aria-modal
+    document.querySelector('#root').removeAttribute('aria-hidden');
   }
 
   // Format the string displaying the names of the authors of the book
@@ -116,7 +121,11 @@ class Book extends Component {
 
     return (
       <li>
-        <button type="button" onClick={this.showModal}>
+        <button
+          type="button"
+          onClick={this.showModal}
+          ref={node => this.openModalButton = node}
+          >
           open
         </button>
         <div className="book">
