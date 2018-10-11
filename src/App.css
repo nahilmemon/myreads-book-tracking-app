@@ -19,6 +19,12 @@ a {
   color: var(--primary-color);
 }
 
+@media (max-width: 767px) {
+  a {
+    padding: 14px 5px;
+  }
+}
+
 a:visited {
   color: var(--primary-dark-color);
 }
@@ -348,6 +354,8 @@ h4 {
 .book-shelf-changer:hover,
 .focus-book-shelf-changer {
   outline: none;
+  width: 40px;
+  height: 40px;
   background: var(--secondary-light-color);
   background-image: url('./icons/arrow-drop-down-inverted.svg');
   background-repeat: no-repeat;
@@ -355,6 +363,21 @@ h4 {
   background-size: 24px;
   box-shadow: 0 3px 6px rgba(92, 107, 192, 0.16), 0 3px 6px rgba(92, 107, 192, 0.23);
   transition: all 0.25s ease-in-out;
+}
+
+@media (max-width: 767px) {
+  .book-shelf-changer {
+    width: 48px;
+    height: 48px;
+    background-size: 34px;
+  }
+
+  .book-shelf-changer:hover,
+  .focus-book-shelf-changer {
+    width: 48px;
+    height: 48px;
+    background-size: 34px;
+  }
 }
 
 .book-shelf-icon {
