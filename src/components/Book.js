@@ -24,12 +24,21 @@ class Book extends Component {
       });
   }
 
-  showModal = () => {
-    this.setState({ shouldShowModal: true });
+  // Toggle the ability to scroll the page content
+  toggleScrollingAbility = () => {
+    document.querySelector('html').classList.toggle('disable-scrolling');
   }
 
+  // Reveal the modal and disable scrolling the background
+  showModal = () => {
+    this.setState({ shouldShowModal: true });
+    this.toggleScrollingAbility();
+  }
+
+  // Hide the modal and enable scrolling the background
   hideModal = () => {
     this.setState({ shouldShowModal: false });
+    this.toggleScrollingAbility();
   }
 
   // Format the string displaying the names of the authors of the book
@@ -91,6 +100,19 @@ class Book extends Component {
       shelfIcon = '';
     }
 
+    // Determine whether to display the modal
+    let modal;
+    if (this.state.shouldShowModal === true) {
+      modal = <BookModal
+        show={this.state.shouldShowModal}
+        handleCloseModal={this.hideModal}
+      >
+        <p>Modal</p>
+        <p>Data</p>
+      </BookModal>;
+    } else {
+      modal = '';
+    }
 
     return (
       <li>
@@ -117,12 +139,7 @@ class Book extends Component {
           <div className="book-title">{this.props.book.title}</div>
           <div className="book-authors">{this.formatAuthors()}</div>
         </div>
-        <BookModal
-          show={this.state.shouldShowModal}
-          handleCloseModal={this.hideModal}>
-          <p>Modal</p>
-          <p>Data</p>
-        </BookModal>
+        {modal}
       </li>
     );
   }

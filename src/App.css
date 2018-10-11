@@ -395,6 +395,11 @@ h4 {
   opacity: 1;
 }
 
+/* Lock the scroll position on everything behind the modal (<html> element) */
+.disable-scrolling {
+  overflow: hidden !important;
+}
+
 /* Modal Content */
 .modal-content {
   position: relative;
