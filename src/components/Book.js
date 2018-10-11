@@ -127,16 +127,20 @@ class Book extends Component {
 
     return (
       <li>
-        <button
-          type="button"
-          onClick={this.showModal}
-          ref={node => this.openModalButton = node}
-          >
-          open
-        </button>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url("${this.determineThumbnail()}")` }}></div>
+            <button
+              type="button"
+              onClick={this.showModal}
+              ref={node => this.openModalButton = node}
+              aria-label=""
+              className="book-cover"
+              style={{
+                width: 128,
+                height: 192,
+                backgroundImage: `url("${this.determineThumbnail()}")`
+              }}
+            ></button>
             <div className="book-shelf-changer">
               <select
                 value={shelfValue}
