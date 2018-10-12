@@ -104,6 +104,7 @@ class Book extends Component {
     } else {
       shelfValue = this.state.shelf;
     }
+
     // Determine whether to display the shelf icon, and if so,
     // determine which icon to display.
     let shelfIcon;
@@ -121,12 +122,30 @@ class Book extends Component {
       shelfIcon = '';
     }
 
+    // Shelf UI
+    let shelfDropdown = <select
+      value={shelfValue}
+      onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
+      onFocus={this.toggleShelfDropdownFocus}
+      onBlur={this.toggleShelfDropdownFocus}>
+      <option value="move" disabled>Move to...</option>
+      <option value="currentlyReading">Currently Reading</option>
+      <option value="wantToRead">Want to Read</option>
+      <option value="read">Read</option>
+      <option value="none">None</option>
+    </select>;
+
     // Determine whether to display the modal
     let modal;
     if (this.state.shouldShowModal === true) {
       modal = <BookModal
         show={this.state.shouldShowModal}
         handleCloseModal={this.hideModal}
+        book={this.props.book}
+        thumbnail={this.determineThumbnail()}
+        authors={this.formatAuthors()}
+        shelf={this.state.shelf}
+        shelfDropdown={shelfDropdown}
       >
         <p>Modal</p>
         <p>Data</p>
@@ -153,17 +172,7 @@ class Book extends Component {
           <div
             className={this.state.isShelfDropdownFocused ? 'book-shelf-changer focus-book-shelf-changer' : 'book-shelf-changer'}
             ref={node => this.shelfDropdownParent = node}>
-            <select
-              value={shelfValue}
-              onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
-              onFocus={this.toggleShelfDropdownFocus}
-              onBlur={this.toggleShelfDropdownFocus}>
-              <option value="move" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
+            {shelfDropdown}
           </div>
           {shelfIcon}
         </div>

@@ -67,6 +67,9 @@ export class BookModal extends Component {
   }
 
   render() {
+    // Determine link labels
+    const PREVIEW_BOOK_ARIA_LABEL = `Preview ${this.props.book.title} at Google Books`;
+    const BUY_BOOK_ARIA_LABEL = `Buy ${this.props.book.title} from Google Play Store`;
     // Determine whether to show modal using CSS
     let showHideClassName;
     if (this.props.show) {
@@ -90,23 +93,57 @@ export class BookModal extends Component {
           <div className="modal-content">
             {/* Header */}
             <div className="modal-header">
+              <h2
+                className="modal-heading"
+                id="modal-heading">
+                {this.props.book.title}
+              </h2>
+              <h3
+                className="modal-heading">
+                {this.props.book.subtitle}
+              </h3>
               <button
                 aria-label="Close Modal"
                 className="button-close-modal"
                 onClick={this.props.handleCloseModal}
                 ref={closeModalButton => closeModalButton && closeModalButton.focus()}
               >×</button>
-              <h2
-                className="modal-heading"
-                id="modal-heading"
-                >Book Details</h2>
             </div>
             {/* Body */}
             <div className="modal-body">
-              <h3 className="modal-subheading">Story</h3>
-              <a href="#">Blabbibity bla...</a>
-              <h3 className="modal-subheading">How to Play</h3>
-              <a href="#">More bla...</a>
+              <dl className="modal-book-overview">
+                <dt>Written By: </dt>
+                <dd>{this.props.authors}</dd>
+                <dt>Date Published: </dt>
+                <dd>{this.props.book.publishedDate}</dd>
+                <dt>Publisher: </dt>
+                <dd>{this.props.book.publisher}</dd>
+                <dt>Categories: </dt>
+                <dd>{this.props.book.categories}</dd>
+                <dt>Language: </dt>
+                <dd>{this.props.book.language}</dd>
+                <dt>No. of Pages: </dt>
+                <dd>{this.props.book.pageCount}</dd>
+                <dt>Age Rating: </dt>
+                <dd>{this.props.book.maturityRating}</dd>
+                <dt>Shelf: </dt>
+                <dd>{this.props.shelfDropdown}</dd>
+              </dl>
+              <img
+                src={this.props.thumbnail}
+                className="modal-book-thumbnail"/>
+              <div className="modal-book-minor-details">
+                <h3 className="modal-subheading">Description</h3>
+                <p>{this.props.book.description}</p>
+                <a
+                  href={this.props.book.previewLink}
+                  aria-label={PREVIEW_BOOK_ARIA_LABEL}
+                  className="book-link book-link-preview"></a>
+                <a
+                  href={this.props.book.infoLink}
+                  aria-label={BUY_BOOK_ARIA_LABEL}
+                  className="book-link book-link-buy"></a>
+              </div>
             </div>
           </div>
         </section>
