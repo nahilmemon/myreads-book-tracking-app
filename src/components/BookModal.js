@@ -15,6 +15,17 @@ export class BookModal extends Component {
     lastTabStopInModal: ''
   }
 
+  static propTypes = {
+    show: PropTypes.bool.isRequired,
+    handleCloseModal: PropTypes.func.isRequired,
+    shelfValue: PropTypes.string.isRequired,
+    onMoveBookToNewShelf: PropTypes.func.isRequired,
+    toggleShelfDropdownFocus: PropTypes.func.isRequired,
+    book: PropTypes.object.isRequired,
+    authors: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDownEvent);
     this.findFocusableElementsWithinModal();
