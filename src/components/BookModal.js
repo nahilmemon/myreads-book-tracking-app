@@ -144,6 +144,7 @@ export class BookModal extends Component {
                     book={this.props.book}
                     shelfValue={this.props.shelfValue}
                     onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+                    redirectShelfDropdownFocus={false}
                     toggleShelfDropdownFocus={this.props.toggleShelfDropdownFocus}
                   />
                 </dd>

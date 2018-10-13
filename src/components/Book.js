@@ -166,6 +166,7 @@ class Book extends Component {
               book={this.props.book}
               shelfValue={shelfValue}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              redirectShelfDropdownFocus={true}
               toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
             />
           </div>
