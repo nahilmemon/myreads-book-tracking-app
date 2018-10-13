@@ -73,7 +73,7 @@ class Book extends Component {
     let authorsString = '';
 
     if (authorsArray === undefined) {
-      authorsString = 'Unknown authors'
+      authorsString = 'Authors unknown'
     } else if (authorsArray.length === 1) {
       authorsString = authorsArray[0]
     } else if (authorsArray.length === 2) {
@@ -132,7 +132,6 @@ class Book extends Component {
         handleCloseModal={this.hideModal}
         book={this.props.book}
         thumbnail={this.determineThumbnail()}
-        authors={this.formatAuthors()}
         shelfValue={this.state.shelf}
         onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
         toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}

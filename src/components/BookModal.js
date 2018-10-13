@@ -22,7 +22,6 @@ export class BookModal extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     toggleShelfDropdownFocus: PropTypes.func.isRequired,
     book: PropTypes.object.isRequired,
-    authors: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired
   }
 
@@ -36,7 +35,6 @@ export class BookModal extends Component {
   }
 
   handleKeyDownEvent = (event) => {
-    console.log(event);
     // Close the modal if the user presses the ESCAPE key
     if (event.key === 'Escape') {
       this.props.handleCloseModal();
@@ -78,6 +76,137 @@ export class BookModal extends Component {
     });
   }
 
+  // Format content to display in the modal, especially in case some
+  // information is missing
+  // Format subtitle
+  formatSubtitle() {
+    if (this.props.book.subtitle) {
+      return (
+        <h3
+          className="modal-heading">
+          {this.props.book.subtitle}
+        </h3>
+      );
+    }
+  }
+
+  // Format published date into a nicer to read format
+  formatPublishedDate() {
+    // Only format the published date if one is available
+    if (this.props.book.publishedDate) {
+      // Split up the published date. Using the length of this array,
+      // figure out how much information to display in the final, newly
+      // formated date
+      let publishedDateSplitUp = this.props.book.publishedDate.split('-');
+      // Convert the published date into a date object
+      let publishedDate = new Date(this.props.book.publishedDate);
+      // To store the date formatting options based on how information is available
+      let dateFormattingOptions;
+      // Show only the year
+      if (publishedDateSplitUp.length === 1) {
+        dateFormattingOptions = {
+          year: 'numeric'
+        };
+      }
+      // Show the month and year
+      else if (publishedDateSplitUp === 2) {
+        dateFormattingOptions = {
+          year: 'numeric',
+          month: 'short'
+        };
+      }
+      // Show the day, month, and year
+      else {
+        dateFormattingOptions = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        };
+      }
+      // Convert and return the date
+      return publishedDate.toLocaleString('en-us', dateFormattingOptions);
+    }
+  }
+
+  // Format a simple string
+  formatString(stringInfo) {
+    if (stringInfo) {
+      return stringInfo;
+    } else {
+      return 'Unknown';
+    }
+  }
+
+  // Format an array into a grammatically correct string of values from the array
+  formatArray(arrayInfo) {
+    // To store the final, desired string displaying all the author names
+    let stringInfo = '';
+
+    if (arrayInfo === undefined) {
+      stringInfo = 'Unknown'
+    } else if (arrayInfo.length === 1) {
+      stringInfo = arrayInfo[0]
+    } else if (arrayInfo.length === 2) {
+      stringInfo = `${arrayInfo[0]} and ${arrayInfo[1]}`
+    } else {
+      for (let i=0; i<arrayInfo.length-1; i++) {
+        stringInfo += `${arrayInfo[i]}, `;
+      }
+      stringInfo += `and ${arrayInfo[arrayInfo.length-1]}`
+    }
+
+    return stringInfo;
+  }
+
+  // Format preview book link
+  formatPreviewLink() {
+    if (this.props.book.previewLink) {
+      return (
+        <a
+          href={this.props.book.previewLink}
+          aria-label={`Preview ${this.props.book.title} at Google Books`}
+          className="book-link book-link-preview">
+          <img
+            className="book-link-preview"
+            src={`${process.env.PUBLIC_URL + '/images/google-books-preview.png'}`}
+            alt={`Preview ${this.props.book.title} at Google Books`}
+          />
+        </a>
+      );
+    }
+  }
+
+  // Format buy book link
+  formatBuyLink() {
+    if (this.props.book.infoLink) {
+      return (
+        <a
+          href={this.props.book.infoLink}
+          aria-label={`Buy ${this.props.book.title} from Google Play Store`}
+          className="book-link book-link-buy">
+          <img
+            className="book-link-buy"
+            src={`${process.env.PUBLIC_URL + '/images/google-play-badge.png'}`}
+            alt={`Buy ${this.props.book.title} from Google Play Store`}
+          />
+        </a>
+      );
+    }
+  }
+
+  // Format maturity rating from snake case to normal text
+  formatMaturityRating() {
+    if (this.props.book.maturityRating) {
+      let newString = this.props.book.maturityRating.toLowerCase().split('_');
+      for (let i=0; i < newString.length; i++) {
+        newString[i] = newString[i].charAt(0).toUpperCase() + newString[i].slice(1);
+      }
+      return newString.join(' ');
+    } else {
+      return 'Unknown';
+    }
+  }
+
   render() {
     // Determine whether to show modal using CSS
     let showHideClassName;
@@ -107,10 +236,7 @@ export class BookModal extends Component {
                 id="modal-heading">
                 {this.props.book.title}
               </h2>
-              <h3
-                className="modal-heading">
-                {this.props.book.subtitle}
-              </h3>
+              {this.formatSubtitle()}
               <button
                 aria-label="Close Modal"
                 className="button-close-modal"
@@ -122,19 +248,17 @@ export class BookModal extends Component {
             <div className="modal-body">
               <dl className="modal-book-overview">
                 <dt>Written By: </dt>
-                <dd>{this.props.authors}</dd>
+                <dd>{this.formatArray(this.props.book.authors)}</dd>
                 <dt>Date Published: </dt>
-                <dd>{this.props.book.publishedDate}</dd>
+                <dd>{this.formatPublishedDate()}</dd>
                 <dt>Publisher: </dt>
-                <dd>{this.props.book.publisher}</dd>
+                <dd>{this.formatString(this.props.book.publisher)}</dd>
                 <dt>Categories: </dt>
-                <dd>{this.props.book.categories}</dd>
-                <dt>Language: </dt>
-                <dd>{this.props.book.language}</dd>
+                <dd>{this.formatArray(this.props.book.categories)}</dd>
                 <dt>No. of Pages: </dt>
-                <dd>{this.props.book.pageCount}</dd>
+                <dd>{this.formatString(this.props.book.pageCount)}</dd>
                 <dt>Age Rating: </dt>
-                <dd>{this.props.book.maturityRating}</dd>
+                <dd>{this.formatMaturityRating()}</dd>
                 <dt>Shelf: </dt>
                 <dd>
                   <ShelfSelect
@@ -151,28 +275,14 @@ export class BookModal extends Component {
                 className="modal-book-thumbnail"
                 alt={`${this.props.book.title} book cover`}/>
               <div className="modal-book-minor-details">
-                <h3 className="modal-subheading">Description</h3>
-                <p>{this.props.book.description}</p>
-                <a
-                  href={this.props.book.previewLink}
-                  aria-label={`Preview ${this.props.book.title} at Google Books`}
-                  className="book-link book-link-preview">
-                  <img
-                    className="book-link-preview"
-                    src={`${process.env.PUBLIC_URL + '/images/google-books-preview.png'}`}
-                    alt={`Preview ${this.props.book.title} at Google Books`}
-                  />
-                </a>
-                <a
-                  href={this.props.book.infoLink}
-                  aria-label={`Buy ${this.props.book.title} from Google Play Store`}
-                  className="book-link book-link-buy">
-                  <img
-                    className="book-link-buy"
-                    src={`${process.env.PUBLIC_URL + '/images/google-play-badge.png'}`}
-                    alt={`Buy ${this.props.book.title} from Google Play Store`}
-                  />
-                </a>
+                {this.props.book.description &&
+                  <h3 className="modal-subheading">Description</h3>
+                }
+                {this.props.book.description &&
+                  <p>{this.formatString(this.props.book.description)}</p>
+                }
+                {this.formatPreviewLink()}
+                {this.formatBuyLink()}
               </div>
             </div>
           </div>
