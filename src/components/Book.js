@@ -151,7 +151,7 @@ class Book extends Component {
             type="button"
             onClick={this.showModal}
             ref={node => this.openModalButton = node}
-            aria-label=""
+            aria-label={`Click for more information regarding the book ${this.props.book.title}`}
             className="book-cover"
             style={{
               width: 128,

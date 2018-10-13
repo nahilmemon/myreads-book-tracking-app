@@ -370,6 +370,8 @@ h4 {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
 }
 
 .book-shelf-changer:hover,

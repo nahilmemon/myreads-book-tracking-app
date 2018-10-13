@@ -16,12 +16,16 @@ class ShelfSelect extends Component {
         value={this.props.shelfValue}
         onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
         onFocus={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}
-        onBlur={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}>
-        <option value="move" disabled>Move to...</option>
-        <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead">Want to Read</option>
-        <option value="read">Read</option>
-        <option value="none">None</option>
+        onBlur={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}
+        name="Move book to shelf: "
+        aria-label={`Move book ${this.props.book.title} to shelf: `}>
+        {/*<option value="move" disabled>Move to...</option>*/}
+        <optgroup label="Move book to shelf: ">
+          <option value="currentlyReading">Currently Reading</option>
+          <option value="wantToRead">Want to Read</option>
+          <option value="read">Read</option>
+          <option value="none">None</option>
+        </optgroup>
       </select>
     );
   }
