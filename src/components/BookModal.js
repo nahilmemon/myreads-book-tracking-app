@@ -79,9 +79,6 @@ export class BookModal extends Component {
   }
 
   render() {
-    // Determine link labels
-    const PREVIEW_BOOK_ARIA_LABEL = `Preview ${this.props.book.title} at Google Books`;
-    const BUY_BOOK_ARIA_LABEL = `Buy ${this.props.book.title} from Google Play Store`;
     // Determine whether to show modal using CSS
     let showHideClassName;
     if (this.props.show) {
@@ -151,18 +148,31 @@ export class BookModal extends Component {
               </dl>
               <img
                 src={this.props.thumbnail}
-                className="modal-book-thumbnail"/>
+                className="modal-book-thumbnail"
+                alt={`${this.props.book.title} book cover`}/>
               <div className="modal-book-minor-details">
                 <h3 className="modal-subheading">Description</h3>
                 <p>{this.props.book.description}</p>
                 <a
                   href={this.props.book.previewLink}
-                  aria-label={PREVIEW_BOOK_ARIA_LABEL}
-                  className="book-link book-link-preview"></a>
+                  aria-label={`Preview ${this.props.book.title} at Google Books`}
+                  className="book-link book-link-preview">
+                  <img
+                    className="book-link-preview"
+                    src={`${process.env.PUBLIC_URL + '/images/google-books-preview.png'}`}
+                    alt={`Preview ${this.props.book.title} at Google Books`}
+                  />
+                </a>
                 <a
                   href={this.props.book.infoLink}
-                  aria-label={BUY_BOOK_ARIA_LABEL}
-                  className="book-link book-link-buy"></a>
+                  aria-label={`Buy ${this.props.book.title} from Google Play Store`}
+                  className="book-link book-link-buy">
+                  <img
+                    className="book-link-buy"
+                    src={`${process.env.PUBLIC_URL + '/images/google-play-badge.png'}`}
+                    alt={`Buy ${this.props.book.title} from Google Play Store`}
+                  />
+                </a>
               </div>
             </div>
           </div>

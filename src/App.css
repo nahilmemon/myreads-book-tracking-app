@@ -666,6 +666,10 @@ h4 {
     min-height: 48px;
     min-width: 48px;
   }
+
+  .book-link {
+    min-height: 48px;
+  }
 }
 
 .book-link {
@@ -678,18 +682,36 @@ h4 {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 2em;
+  text-decoration: underline;
+}
+
+.book-link img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.book-link img:after {
+  display: block;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  max-height: 48px;
+  content: attr(alt);
+  background-color: var(--secondary-light-color);
 }
 
 .book-link-preview {
-  background-image: url('./images/google-books-preview.png');
-  width: 136px;
+  min-width: 136px;
 }
 
 .book-link-buy {
-  background-image: url('./images/google-play-badge.png');
-  width: 165px;
+  min-width: 165px;
 }
 
 .book-link:hover,
