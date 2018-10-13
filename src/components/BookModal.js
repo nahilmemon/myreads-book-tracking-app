@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import ShelfSelect from './ShelfSelect.js';
 
 export class BookModal extends Component {
   state = {
@@ -127,7 +128,14 @@ export class BookModal extends Component {
                 <dt>Age Rating: </dt>
                 <dd>{this.props.book.maturityRating}</dd>
                 <dt>Shelf: </dt>
-                <dd>{this.props.shelfDropdown}</dd>
+                <dd>
+                  <ShelfSelect
+                    book={this.props.book}
+                    shelfValue={this.props.shelfValue}
+                    onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+                    toggleShelfDropdownFocus={this.props.toggleShelfDropdownFocus}
+                  />
+                </dd>
               </dl>
               <img
                 src={this.props.thumbnail}

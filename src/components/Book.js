@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
+import ShelfSelect from './ShelfSelect.js';
 import BookModal from './BookModal.js';
 
 class Book extends Component {
@@ -22,6 +23,7 @@ class Book extends Component {
     displayShelfIcon: PropTypes.bool.isRequired
   }
 
+  // Determine which shelf the book is on
   componentDidMount() {
     BooksAPI.get(this.props.book.id)
       .then((results) => {
@@ -122,19 +124,6 @@ class Book extends Component {
       shelfIcon = '';
     }
 
-    // Shelf UI
-    let shelfDropdown = <select
-      value={shelfValue}
-      onChange={(event) => this.props.onMoveBookToNewShelf(this.props.book, event.target.value)}
-      onFocus={this.toggleShelfDropdownFocus}
-      onBlur={this.toggleShelfDropdownFocus}>
-      <option value="move" disabled>Move to...</option>
-      <option value="currentlyReading">Currently Reading</option>
-      <option value="wantToRead">Want to Read</option>
-      <option value="read">Read</option>
-      <option value="none">None</option>
-    </select>;
-
     // Determine whether to display the modal
     let modal;
     if (this.state.shouldShowModal === true) {
@@ -144,8 +133,9 @@ class Book extends Component {
         book={this.props.book}
         thumbnail={this.determineThumbnail()}
         authors={this.formatAuthors()}
-        shelf={this.state.shelf}
-        shelfDropdown={shelfDropdown}
+        shelfValue={this.state.shelf}
+        onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+        toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
       >
         <p>Modal</p>
         <p>Data</p>
@@ -172,7 +162,12 @@ class Book extends Component {
           <div
             className={this.state.isShelfDropdownFocused ? 'book-shelf-changer focus-book-shelf-changer' : 'book-shelf-changer'}
             ref={node => this.shelfDropdownParent = node}>
-            {shelfDropdown}
+            <ShelfSelect
+              book={this.props.book}
+              shelfValue={shelfValue}
+              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
+            />
           </div>
           {shelfIcon}
         </div>
