@@ -21,22 +21,12 @@ class SearchBooks extends Component {
     this.clearQuery();
   }
 
-  // Update the state's query and trigger a book search if the query isn't empty
+  // Update the state's query
   updateQuery = (query) => {
     // Change the state's query value to match the given query
     this.setState({
       query: query
     });
-    // If there is a query, then search for books that match this query
-    if (query) {
-      this.searchBooks(query);
-    }
-    // Else if the query is empty, then empty the bookResults array
-    else {
-      this.setState({
-        bookResults: []
-      });
-    }
   }
 
   // Clear the state's query value
@@ -50,28 +40,38 @@ class SearchBooks extends Component {
   // Use the BooksAPI to search for books matching the given query.
   // Update the state's bookResults array with the results found.
   searchBooks = (query) => {
-    // Fetch all the books using the API
-    BooksAPI.search(query)
-      // Update the state with the retrieved books array
-      .then((results) => {
-        // If results were found, then change the bookResults array to match
-        // the results found
-        if (results.length) {
-          this.setState({
-            bookResults: results
-          });
-        }
-        // Else empty the bookResults array to indicate no results found
-        else {
-          this.setState({
-            bookResults: []
-          });
-        }
-      })
-      // Catch any errors during the process
-      .catch((err) => {
-        console.log('Searching query (', query, ') error: ', err)
+    // If the query is empty, then empty the bookResults array
+    if (!query) {
+      this.setState({
+        bookResults: []
       });
+    }
+    // Else if the query isn't empty, then try fetching the
+    // books that match the query using the BooksAPI
+    else {
+      // Fetch all the books using the API
+      BooksAPI.search(query)
+        // Update the state with the retrieved books array
+        .then((results) => {
+          // If results were found, then change the bookResults array to match
+          // the results found
+          if (results.length) {
+            this.setState({
+              bookResults: results
+            });
+          }
+          // Else empty the bookResults array to indicate no results found
+          else {
+            this.setState({
+              bookResults: []
+            });
+          }
+        })
+        // Catch any errors during the process
+        .catch((err) => {
+          console.log('Searching query (', query, ') error: ', err)
+        });
+    }
   }
 
   render() {
