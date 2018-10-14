@@ -79,7 +79,7 @@ class SearchBooks extends Component {
     // the bookResults found
     let searchResults;
     // Case 1: the user searched for something and search results were found
-    if (this.state.bookResults.length) {
+    if (this.state.bookResults && this.state.bookResults.length > 0) {
       searchResults = (<BookGrid
         books={this.state.bookResults}
         onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}

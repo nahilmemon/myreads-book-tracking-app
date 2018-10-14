@@ -65,9 +65,9 @@ class BooksApp extends React.Component {
         // the shelf changes persist instead of beforehand in case there was an
         // error updating the book in the server.
       .then((books) => {
-        this.setState((state) => ({
+        this.setState({
           books: newBooks
-        }));
+        });
       })
       // Catch any errors during the process
       .catch((err) => {
