@@ -29,49 +29,30 @@ class BooksApp extends React.Component {
   // Change the shelf that a book (modifiedBook) is located on to the new
   // shelf that the user clicked on
   moveBookToNewShelf = (modifiedBook, newShelf) => {
-    // Helper function to determine whether the modified book's id
-    // matches any given book's id
-    function findMatchingBookId(unmodifiedBook) {
-      return unmodifiedBook.id === modifiedBook.id;
-    }
-    // Find the index of the modifiedBook in state's books array
-    let modifiedBookIndex = this.state.books.findIndex(findMatchingBookId);
-
-    // Get the current books array from the state and change the shelf of
-    // the modifiedBook in this array
-    let newBooks = this.state.books;
-    // If the book is already in newBooks, then modify the shelf
-    if (modifiedBookIndex !== -1) {
-      newBooks[modifiedBookIndex].shelf = newShelf;
-    }
-    // Otherwise, change the shelf and then add it to newBooks
-    else {
-      modifiedBook.shelf = newShelf;
-      newBooks.push(modifiedBook);
-    }
-
     // Update the server with the book's new shelf information
     BooksAPI.update(modifiedBook, newShelf)
-      // Then update the state with the newBooks array in order to reflect the
-      // modifiedBook's new shelf value
-      // Note #1: I could alternatively do this:
-        // .then(() => (BooksAPI.getAll()))
-        // and not do any of the above code either
-        // but since the user can only change one book at a time,
-        // and taking into consideration that the user might have a very long
-        // list of books in his/her library, doing the following manually is
-        // probably much faster then getting all the books from the API
-      // Note #2: I'm setting the state after BooksAPI.update() to ensure that
-        // the shelf changes persist instead of beforehand in case there was an
-        // error updating the book in the server.
-      .then((books) => {
-        this.setState({
-          books: newBooks
-        });
+      // Catch any errors resulting from trying to update the book's new shelf
+      .catch((error) => {
+        console.log('Error in updating book-shelf movement: ', error);
       })
-      // Catch any errors during the process
-      .catch((err) => {
-        console.log('Error in updating: ', err)
+      // Then get all the books from the server
+      .then(() => {
+        BooksAPI.getAll()
+          // Catch any errors resulting from getting all the books from the server
+          .catch((error) => {
+            console.log('Error in retrieving all books: ', error);
+          })
+          // Then update the state with the newBooks array in order to reflect the
+          // modifiedBook's new shelf value
+          .then((newBooks) => {
+            this.setState({
+              books: newBooks
+            });
+          })
+          // Catch any errors resulting from getting all the books from the server
+          .catch((error) => {
+            console.log('Error in refreshing book state after changing shelves: ', error);
+          });
       });
   }
 
