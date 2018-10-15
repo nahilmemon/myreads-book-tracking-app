@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import escapeRegExp from 'escape-string-regexp';
-import sortBy from 'sort-by';
+// import sortBy from 'sort-by';
 import * as BooksAPI from '../BooksAPI';
 import BookGrid from './BookGrid.js';
 
@@ -10,7 +9,8 @@ class SearchBooks extends Component {
   state = {
     query: '',
     bookResults: [],
-    displayShelfIcon: true
+    displayShelfIcon: true,
+    areSearchResultsLoaded: true
   }
 
   static propTypes = {
@@ -18,20 +18,20 @@ class SearchBooks extends Component {
   }
 
   componentDidMount = () => {
-    console.log('mounting now');
-    this.searchBooks(this.state.query);
+    // console.log('mounting now');
   }
 
   componentWillUnmount = () => {
-    console.log('unmounting now');
+    // console.log('unmounting now');
     this.clearQuery();
   }
 
-  // Update the state's query
+  // Update the state's query and search for books accordingly
   updateQuery = (query) => {
     // Change the state's query value to match the given query
     this.setState({
-      query: query
+      query: query,
+      areSearchResultsLoaded: false
     });
     // Search for books that match this query
     this.searchBooks(query);
@@ -48,43 +48,39 @@ class SearchBooks extends Component {
   // Use the BooksAPI to search for books matching the given query.
   // Update the state's bookResults array with the results found.
   searchBooks = (query) => {
-    console.log('beginning search: ', query);
     // If the query is empty, then empty the bookResults array
     if (!query) {
-      console.log('resetting since no query given: ', query);
       this.setState({
-        bookResults: []
+        bookResults: [],
+        areSearchResultsLoaded: true
       });
     }
     // Else if the query isn't empty, then try fetching the
     // books that match the query using the BooksAPI
     else {
-      console.log('beginning actual book search: ', query);
       // Fetch all the books using the API
       BooksAPI.search(query)
         // Update the state with the retrieved books array
         .then((results) => {
-          console.log('results found: ', results.length);
-          console.log(results);
           // If results were found, then change the bookResults array to match
           // the results found
           if (results.length) {
-            console.log('updating bookResults');
             this.setState({
-              bookResults: results
+              bookResults: results,
+              areSearchResultsLoaded: true
             });
           }
           // Else empty the bookResults array to indicate no results found
           else {
-            console.log('no results found. emptying bookResults');
             this.setState({
-              bookResults: []
+              bookResults: [],
+              areSearchResultsLoaded: true
             });
           }
         })
         // Catch any errors during the process
-        .catch((err) => {
-          console.log('Searching query (', query, ') error: ', err)
+        .catch((error) => {
+          console.log('Searching query (', query, ') error: ', error)
         });
     }
   }
@@ -93,21 +89,28 @@ class SearchBooks extends Component {
     // Determine what to display in the search results based on the query and
     // the bookResults found
     let searchResults;
-    // Case 1: the user searched for something and search results were found
-    if (this.state.bookResults && this.state.bookResults.length > 0) {
-      searchResults = (<BookGrid
-        books={this.state.bookResults}
-        onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-        displayShelfIcon={this.state.displayShelfIcon}
-      />);
+    // Case A: If the search is complete, display the search results
+    if (this.state.areSearchResultsLoaded) {
+      // Case A1: the user searched for something and search results were found
+      if (this.state.bookResults && this.state.bookResults.length > 0) {
+        searchResults = (<BookGrid
+          books={this.state.bookResults}
+          onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+          displayShelfIcon={this.state.displayShelfIcon}
+        />);
+      }
+      // Case A2: the user searched for something and no search results were found
+      else if (this.state.query !== '') {
+        searchResults = <p className="no-search-results-message">No results found</p>;
+      }
+      // Case A3: the user didn't search for anything
+      else {
+        searchResults = '';
+      }
     }
-    // Case 2: the user searched for something and no search results were found
-    else if (this.state.query !== '') {
-      searchResults = <p className="no-search-results-message">No results found</p>;
-    }
-    // Case 3: the user didn't search for anything
+    // Case B: If the search isn't complete, display loading state
     else {
-      searchResults = '';
+      searchResults = <p className="no-search-results-message">Finding books...</p>;
     }
 
     return (
