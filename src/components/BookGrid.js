@@ -26,7 +26,7 @@ class BookGrid extends Component {
       );
     } else {
       return (
-        <p className="no-search-results-message">Waiting for books to load...</p>
+        <p className="message">Waiting for books to load...</p>
       );
     }
   }

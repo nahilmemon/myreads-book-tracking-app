@@ -105,7 +105,7 @@ class SearchBooks extends Component {
       }
       // Case A2: the user searched for something and no search results were found
       else if (this.state.query !== '') {
-        searchResults = <p className="no-search-results-message">No results found</p>;
+        searchResults = <p className="message">No results found</p>;
       }
       // Case A3: the user didn't search for anything
       else {
@@ -114,7 +114,7 @@ class SearchBooks extends Component {
     }
     // Case B: If the search isn't complete, display loading state
     else {
-      searchResults = <p className="no-search-results-message">Finding books...</p>;
+      searchResults = <p className="message">Finding books...</p>;
     }
 
     return (

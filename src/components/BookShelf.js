@@ -16,13 +16,17 @@ class Bookshelf extends Component {
     return (
       <section className="bookshelf">
         <h2 className="bookshelf-title">{this.props.title}</h2>
-        <BookGrid
-          className="bookshelf-books"
-          books={this.props.books}
-          onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-          areBooksLoaded={this.props.areLibraryBooksLoaded}
-          displayShelfIcon={this.props.displayShelfIcon}
-        />
+        {this.props.books.length <= 0 && this.props.areLibraryBooksLoaded ? (
+          <p className="message">This shelf is empty.</p>
+        ) : (
+          <BookGrid
+            className="bookshelf-books"
+            books={this.props.books}
+            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+            areBooksLoaded={this.props.areLibraryBooksLoaded}
+            displayShelfIcon={this.props.displayShelfIcon}
+          />
+        )}
       </section>
     );
   }
