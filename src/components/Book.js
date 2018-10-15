@@ -158,30 +158,15 @@ class Book extends Component {
               backgroundImage: `url("${this.determineThumbnail()}")`
             }}
           ></button>
-          {/*
-          <div
-            className={this.state.isShelfDropdownFocused ?
-              'book-shelf-changer focus-book-shelf-changer'
-              : 'book-shelf-changer'}>
-            <ShelfSelect
-              isParentBook={true}
-              book={this.props.book}
-              shelfValue={shelfValue}
-              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-              redirectShelfDropdownFocus={true}
-              toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
-            />
-          </div>
-          */}
-            <ShelfSelect
-              isParentBook={true}
-              book={this.props.book}
-              shelfValue={shelfValue}
-              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-              redirectShelfDropdownFocus={true}
-              toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
-              isShelfDropdownFocused={this.state.isShelfDropdownFocused}
-            />
+          <ShelfSelect
+            isParentBook={true}
+            book={this.props.book}
+            shelfValue={shelfValue}
+            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+            redirectShelfDropdownFocus={true}
+            toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
+            isShelfDropdownFocused={this.state.isShelfDropdownFocused}
+          />
           {shelfIcon}
         </div>
         <p className="book-title">{this.props.book.title}</p>
