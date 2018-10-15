@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import sortBy from 'sort-by';
+import sortBy from 'sort-by';
 import debounce from 'lodash.debounce';
 import * as BooksAPI from '../BooksAPI';
 import BookGrid from './BookGrid.js';
@@ -97,7 +97,7 @@ class SearchBooks extends Component {
       // Case A1: the user searched for something and search results were found
       if (this.state.bookResults && this.state.bookResults.length > 0) {
         searchResults = (<BookGrid
-          books={this.state.bookResults}
+          books={this.state.bookResults.sort(sortBy('title'))}
           onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
           areBooksLoaded={this.state.areSearchResultsBooksLoaded}
           displayShelfIcon={this.state.displayShelfIcon}
