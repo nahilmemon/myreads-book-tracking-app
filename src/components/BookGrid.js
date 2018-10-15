@@ -6,22 +6,29 @@ class BookGrid extends Component {
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.object),
     onMoveBookToNewShelf: PropTypes.func.isRequired,
-    displayShelfIcon: PropTypes.bool.isRequired
+    displayShelfIcon: PropTypes.bool.isRequired,
+    areBooksLoaded: PropTypes.bool.isRequired
   }
 
   render() {
-    return (
-      <ol className="books-grid">
-        {this.props.books.map((book) => (
-          <Book
-            key={book.id}
-            book={book}
-            onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
-            displayShelfIcon={this.props.displayShelfIcon}
-          />
-        ))}
-      </ol>
-    );
+    if (this.props.areBooksLoaded) {
+      return (
+        <ol className="books-grid">
+          {this.props.books.map((book) => (
+            <Book
+              key={book.id}
+              book={book}
+              onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              displayShelfIcon={this.props.displayShelfIcon}
+            />
+          ))}
+        </ol>
+      );
+    } else {
+      return (
+        <p className="no-search-results-message">Waiting for books to load...</p>
+      );
+    }
   }
 }
 

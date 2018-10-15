@@ -10,7 +10,7 @@ class SearchBooks extends Component {
     query: '',
     bookResults: [],
     displayShelfIcon: true,
-    areSearchResultsLoaded: true
+    areSearchResultsBooksLoaded: true
   }
 
   static propTypes = {
@@ -31,7 +31,7 @@ class SearchBooks extends Component {
     // Change the state's query value to match the given query
     this.setState({
       query: query,
-      areSearchResultsLoaded: false
+      areSearchResultsBooksLoaded: false
     });
     // Search for books that match this query
     this.searchBooks(query);
@@ -52,7 +52,7 @@ class SearchBooks extends Component {
     if (!query) {
       this.setState({
         bookResults: [],
-        areSearchResultsLoaded: true
+        areSearchResultsBooksLoaded: true
       });
     }
     // Else if the query isn't empty, then try fetching the
@@ -67,14 +67,14 @@ class SearchBooks extends Component {
           if (results.length) {
             this.setState({
               bookResults: results,
-              areSearchResultsLoaded: true
+              areSearchResultsBooksLoaded: true
             });
           }
           // Else empty the bookResults array to indicate no results found
           else {
             this.setState({
               bookResults: [],
-              areSearchResultsLoaded: true
+              areSearchResultsBooksLoaded: true
             });
           }
         })
@@ -90,12 +90,13 @@ class SearchBooks extends Component {
     // the bookResults found
     let searchResults;
     // Case A: If the search is complete, display the search results
-    if (this.state.areSearchResultsLoaded) {
+    if (this.state.areSearchResultsBooksLoaded) {
       // Case A1: the user searched for something and search results were found
       if (this.state.bookResults && this.state.bookResults.length > 0) {
         searchResults = (<BookGrid
           books={this.state.bookResults}
           onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+          areBooksLoaded={this.state.areSearchResultsBooksLoaded}
           displayShelfIcon={this.state.displayShelfIcon}
         />);
       }

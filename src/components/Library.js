@@ -29,6 +29,7 @@ class Library extends Component {
                 book.shelf === "currentlyReading"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
             />
             <Bookshelf
@@ -38,6 +39,7 @@ class Library extends Component {
                 book.shelf === "wantToRead"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
             />
             <Bookshelf
@@ -47,6 +49,7 @@ class Library extends Component {
                 book.shelf === "read"
               ))}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+              areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
             />
         </div>

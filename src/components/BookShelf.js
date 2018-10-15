@@ -8,7 +8,8 @@ class Bookshelf extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     shelf: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    displayShelfIcon: PropTypes.bool.isRequired
+    displayShelfIcon: PropTypes.bool.isRequired,
+    areLibraryBooksLoaded: PropTypes.bool.isRequired
   }
 
   render() {
@@ -19,6 +20,7 @@ class Bookshelf extends Component {
           className="bookshelf-books"
           books={this.props.books}
           onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
+          areBooksLoaded={this.props.areLibraryBooksLoaded}
           displayShelfIcon={this.props.displayShelfIcon}
         />
       </section>
