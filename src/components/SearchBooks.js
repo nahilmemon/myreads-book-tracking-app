@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import sortBy from 'sort-by';
+import debounce from 'lodash.debounce';
 import * as BooksAPI from '../BooksAPI';
 import BookGrid from './BookGrid.js';
 
 class SearchBooks extends Component {
+  constructor(props) {
+    super(props);
+    this.updateQuery = this.updateQuery.bind(this);
+    this.searchBooksDebounced = debounce(this.searchBooks, 250);
+  }
+
   state = {
     query: '',
     bookResults: [],
@@ -17,12 +24,8 @@ class SearchBooks extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired
   }
 
-  componentDidMount = () => {
-    // console.log('mounting now');
-  }
-
-  componentWillUnmount = () => {
-    // console.log('unmounting now');
+  componentWillUnmount() {
+    this.searchBooksDebounced.cancel();
     this.clearQuery();
   }
 
@@ -34,7 +37,7 @@ class SearchBooks extends Component {
       areSearchResultsBooksLoaded: false
     });
     // Search for books that match this query
-    this.searchBooks(query);
+    this.searchBooksDebounced(query);
   }
 
   // Clear the state's query value
