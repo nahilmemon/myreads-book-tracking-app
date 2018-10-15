@@ -18,6 +18,12 @@ class SearchBooks extends Component {
   }
 
   componentDidMount = () => {
+    console.log('mounting now');
+    this.searchBooks(this.state.query);
+  }
+
+  componentWillUnmount = () => {
+    console.log('unmounting now');
     this.clearQuery();
   }
 
@@ -27,6 +33,8 @@ class SearchBooks extends Component {
     this.setState({
       query: query
     });
+    // Search for books that match this query
+    this.searchBooks(query);
   }
 
   // Clear the state's query value
@@ -40,8 +48,10 @@ class SearchBooks extends Component {
   // Use the BooksAPI to search for books matching the given query.
   // Update the state's bookResults array with the results found.
   searchBooks = (query) => {
+    console.log('beginning search: ', query);
     // If the query is empty, then empty the bookResults array
     if (!query) {
+      console.log('resetting since no query given: ', query);
       this.setState({
         bookResults: []
       });
@@ -49,19 +59,24 @@ class SearchBooks extends Component {
     // Else if the query isn't empty, then try fetching the
     // books that match the query using the BooksAPI
     else {
+      console.log('beginning actual book search: ', query);
       // Fetch all the books using the API
       BooksAPI.search(query)
         // Update the state with the retrieved books array
         .then((results) => {
+          console.log('results found: ', results.length);
+          console.log(results);
           // If results were found, then change the bookResults array to match
           // the results found
           if (results.length) {
+            console.log('updating bookResults');
             this.setState({
               bookResults: results
             });
           }
           // Else empty the bookResults array to indicate no results found
           else {
+            console.log('no results found. emptying bookResults');
             this.setState({
               bookResults: []
             });
