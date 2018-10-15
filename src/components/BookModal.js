@@ -262,6 +262,7 @@ export class BookModal extends Component {
                 <dt>Shelf: </dt>
                 <dd>
                   <ShelfSelect
+                    isParentBook={false}
                     book={this.props.book}
                     shelfValue={this.props.shelfValue}
                     onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
