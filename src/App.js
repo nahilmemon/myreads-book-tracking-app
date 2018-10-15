@@ -8,21 +8,41 @@ import SearchBooks from './components/SearchBooks.js';
 class BooksApp extends React.Component {
   state = {
     // Store the books belonging to user's library
-    books: []
+    books: [],
+    areLibraryBooksLoaded: false
   }
 
   // Fetch all the books saved in the user's library and update the state
-  // with these results
+  // with these results. Show a loading state while the books are being
+  // fetched.
   componentDidMount() {
-    // Fetch all the books using the API
+    this.retrieveLibraryBooks();
+  }
+
+  // Get all the books in the library using the BooksAPI
+  retrieveLibraryBooks() {
+    // To display a loading state until the new books have arrived
+    this.setState({
+      areLibraryBooksLoaded: false,
+      books: []
+    });
+
+    // Fetch all the books from the user's library using the API
     BooksAPI.getAll()
+      // Catch any errors resulting from getting all the books from the server
+      .catch((error) => {
+        console.log('Error in retrieving all books: ', error);
+      })
       // Update the state with the retrived books array
       .then((books) => {
-        this.setState({ books: books })
+        this.setState({
+          books: books,
+          areLibraryBooksLoaded: true
+        });
       })
       // Catch any errors during the process
-      .catch((err) => {
-        console.log('Error in updating: ', err)
+      .catch((error) => {
+        console.log('Error in refreshing book state after retrieval: ', error);
       });
   }
 
@@ -37,22 +57,7 @@ class BooksApp extends React.Component {
       })
       // Then get all the books from the server
       .then(() => {
-        BooksAPI.getAll()
-          // Catch any errors resulting from getting all the books from the server
-          .catch((error) => {
-            console.log('Error in retrieving all books: ', error);
-          })
-          // Then update the state with the newBooks array in order to reflect the
-          // modifiedBook's new shelf value
-          .then((newBooks) => {
-            this.setState({
-              books: newBooks
-            });
-          })
-          // Catch any errors resulting from getting all the books from the server
-          .catch((error) => {
-            console.log('Error in refreshing book state after changing shelves: ', error);
-          });
+        this.retrieveLibraryBooks();
       });
   }
 
@@ -63,6 +68,7 @@ class BooksApp extends React.Component {
           <Library
             books={this.state.books}
             onMoveBookToNewShelf={this.moveBookToNewShelf}
+            areLibraryBooksLoaded={this.state.areLibraryBooksLoaded}
           />
         )}/>
         <Route path='/search' render={() => (

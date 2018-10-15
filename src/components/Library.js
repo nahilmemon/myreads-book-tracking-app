@@ -10,7 +10,8 @@ class Library extends Component {
 
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onMoveBookToNewShelf: PropTypes.func.isRequired
+    onMoveBookToNewShelf: PropTypes.func.isRequired,
+    areLibraryBooksLoaded: PropTypes.bool.isRequired
   }
 
   render() {
