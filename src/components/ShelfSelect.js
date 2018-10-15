@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import * as BooksAPI from './BooksAPI';
 
 class ShelfSelect extends Component {
   state = {
-    isLoaded: true
+    isLoaded: true,
+    shelfIcon: ''
   }
 
   static propTypes = {
@@ -16,11 +18,47 @@ class ShelfSelect extends Component {
     isShelfDropdownFocused: PropTypes.bool
   }
 
+  componentDidMount() {
+    this.props.getShelfOfBook()
+      .then(() => {
+        this.setState ({
+          shelfIcon: this.determineShelfIcon(this.props.shelfValue)
+        });
+      });
+  }
+
+  // Determine whether to display the shelf icon, and if so,
+  // determine which icon to display.
+  determineShelfIcon = (shelf) => {
+    let shelfIcon;
+    if (this.props.displayShelfIcon === true) {
+      if (shelf === 'currentlyReading') {
+        shelfIcon = <div className="book-shelf-icon">C</div>;
+      } else if (shelf === 'wantToRead') {
+        shelfIcon = <div className="book-shelf-icon">W</div>;
+      } else if (shelf === 'read') {
+        shelfIcon = <div className="book-shelf-icon">R</div>;
+      } else {
+        shelfIcon = '';
+      }
+    } else {
+      shelfIcon = '';
+    }
+    return shelfIcon;
+  }
+
   moveBookToNewShelf = (modifiedBook, newShelf) => {
     // Reset loading state
     this.setState({ isLoaded: false });
     // Move book to new shelf using the Books API
-    this.props.onMoveBookToNewShelf(modifiedBook, newShelf);
+    this.props.onMoveBookToNewShelf(modifiedBook, newShelf).then(() => {
+      this.setState({
+        isLoaded: true,
+        shelfIcon: this.determineShelfIcon(newShelf)
+      });
+      console.log('done changing shelves');
+      console.log(this.state.shelfIcon);
+    });
   }
 
   render() {
@@ -60,9 +98,12 @@ class ShelfSelect extends Component {
     // and the <select>
     if (this.props.isParentBook) {
       return (
-        <div className={bookShelfChangerIconClasses}>
-          {select}
-        </div>
+        <React.Fragment>
+          <div className={bookShelfChangerIconClasses}>
+            {select}
+          </div>
+          {this.state.shelfIcon}
+        </React.Fragment>
       );
     }
     // If this component belongs in the modal, then only render the <select>

@@ -25,7 +25,12 @@ class Book extends Component {
 
   // Determine which shelf the book is on
   componentDidMount() {
-    BooksAPI.get(this.props.book.id)
+    this.getShelfOfBook();
+  }
+
+  // Figure out which shelf the book is on using the BooksAPI
+  getShelfOfBook = () => {
+    return BooksAPI.get(this.props.book.id)
       .then((results) => {
         this.setState({
           shelf: results.shelf
@@ -107,23 +112,6 @@ class Book extends Component {
       shelfValue = this.state.shelf;
     }
 
-    // Determine whether to display the shelf icon, and if so,
-    // determine which icon to display.
-    let shelfIcon;
-    if (this.props.displayShelfIcon === true) {
-      if (this.state.shelf === 'currentlyReading') {
-        shelfIcon = <div className="book-shelf-icon">C</div>;
-      } else if (this.state.shelf === 'wantToRead') {
-        shelfIcon = <div className="book-shelf-icon">W</div>;
-      } else if (this.state.shelf === 'read') {
-        shelfIcon = <div className="book-shelf-icon">R</div>;
-      } else {
-        shelfIcon = '';
-      }
-    } else {
-      shelfIcon = '';
-    }
-
     // Determine whether to display the modal
     let modal;
     if (this.state.shouldShowModal === true) {
@@ -166,8 +154,10 @@ class Book extends Component {
             redirectShelfDropdownFocus={true}
             toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
             isShelfDropdownFocused={this.state.isShelfDropdownFocused}
+            displayShelfIcon={this.props.displayShelfIcon}
+            getShelfOfBook={this.getShelfOfBook}
           />
-          {shelfIcon}
+          {/*{this.determineShelfIcon()}*/}
         </div>
         <p className="book-title">{this.props.book.title}</p>
         <p className="book-authors">{this.formatAuthors()}</p>

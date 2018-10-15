@@ -50,7 +50,7 @@ class BooksApp extends React.Component {
   // shelf that the user clicked on
   moveBookToNewShelf = (modifiedBook, newShelf) => {
     // Update the server with the book's new shelf information
-    BooksAPI.update(modifiedBook, newShelf)
+    return BooksAPI.update(modifiedBook, newShelf)
       // Catch any errors resulting from trying to update the book's new shelf
       .catch((error) => {
         console.log('Error in updating book-shelf movement: ', error);
