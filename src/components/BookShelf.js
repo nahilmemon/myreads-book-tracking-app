@@ -25,6 +25,7 @@ class Bookshelf extends Component {
             onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
             areBooksLoaded={this.props.areLibraryBooksLoaded}
             displayShelfIcon={this.props.displayShelfIcon}
+            page={this.props.page}
           />
         )}
       </section>

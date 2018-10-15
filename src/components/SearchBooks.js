@@ -101,6 +101,7 @@ class SearchBooks extends Component {
           onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
           areBooksLoaded={this.state.areSearchResultsBooksLoaded}
           displayShelfIcon={this.state.displayShelfIcon}
+          page="search"
         />);
       }
       // Case A2: the user searched for something and no search results were found

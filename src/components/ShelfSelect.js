@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import * as BooksAPI from './BooksAPI';
 
 class ShelfSelect extends Component {
   state = {
@@ -19,12 +18,19 @@ class ShelfSelect extends Component {
   }
 
   componentDidMount() {
-    this.props.getShelfOfBook()
-      .then(() => {
-        this.setState ({
-          shelfIcon: this.determineShelfIcon(this.props.shelfValue)
+    // If the user is on the search page, then make the dropdowns look like
+    // they're loading until the shelf information for the corresponding
+    // book has been retrieved
+    if (this.props.page === 'search') {
+      this.setState ({ isLoaded: false});
+      this.props.getShelfOfBook()
+        .then(() => {
+          this.setState ({
+            isLoaded: true,
+            shelfIcon: this.determineShelfIcon(this.props.shelfValue)
+          });
         });
-      });
+    }
   }
 
   // Determine whether to display the shelf icon, and if so,
@@ -56,8 +62,6 @@ class ShelfSelect extends Component {
         isLoaded: true,
         shelfIcon: this.determineShelfIcon(newShelf)
       });
-      console.log('done changing shelves');
-      console.log(this.state.shelfIcon);
     });
   }
 

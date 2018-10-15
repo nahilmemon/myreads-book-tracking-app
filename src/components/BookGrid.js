@@ -20,6 +20,7 @@ class BookGrid extends Component {
               book={book}
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
               displayShelfIcon={this.props.displayShelfIcon}
+              page={this.props.page}
             />
           ))}
         </ol>

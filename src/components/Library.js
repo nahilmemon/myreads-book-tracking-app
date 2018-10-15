@@ -31,6 +31,7 @@ class Library extends Component {
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
               areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
+              page="library"
             />
             <Bookshelf
               title="Want to Read"
@@ -41,6 +42,7 @@ class Library extends Component {
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
               areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
+              page="library"
             />
             <Bookshelf
               title="Read"
@@ -51,6 +53,7 @@ class Library extends Component {
               onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
               areLibraryBooksLoaded={this.props.areLibraryBooksLoaded}
               displayShelfIcon={this.state.displayShelfIcon}
+              page="library"
             />
         </div>
         <div className="open-search" id="searchButtonContainer">

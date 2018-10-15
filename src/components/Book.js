@@ -156,6 +156,7 @@ class Book extends Component {
             isShelfDropdownFocused={this.state.isShelfDropdownFocused}
             displayShelfIcon={this.props.displayShelfIcon}
             getShelfOfBook={this.getShelfOfBook}
+            page={this.props.page}
           />
           {/*{this.determineShelfIcon()}*/}
         </div>
