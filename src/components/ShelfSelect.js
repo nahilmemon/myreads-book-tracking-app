@@ -14,7 +14,10 @@ class ShelfSelect extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     redirectShelfDropdownFocus: PropTypes.bool.isRequired,
     toggleShelfDropdownFocus: PropTypes.func.isRequired,
-    isShelfDropdownFocused: PropTypes.bool
+    isShelfDropdownFocused: PropTypes.bool,
+    displayShelfIcon: PropTypes.bool.isRequired,
+    page: PropTypes.string.isRequired,
+    getShelfOfBook: PropTypes.func.isRequired
   }
 
   componentDidMount() {

@@ -20,7 +20,8 @@ class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired,
-    displayShelfIcon: PropTypes.bool.isRequired
+    displayShelfIcon: PropTypes.bool.isRequired,
+    page: PropTypes.string.isRequired
   }
 
   // Determine which shelf the book is on

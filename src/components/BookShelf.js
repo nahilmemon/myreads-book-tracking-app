@@ -9,7 +9,8 @@ class Bookshelf extends Component {
     shelf: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     displayShelfIcon: PropTypes.bool.isRequired,
-    areLibraryBooksLoaded: PropTypes.bool.isRequired
+    areLibraryBooksLoaded: PropTypes.bool.isRequired,
+    page: PropTypes.string.isRequired
   }
 
   render() {

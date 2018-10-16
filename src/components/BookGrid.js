@@ -7,7 +7,8 @@ class BookGrid extends Component {
     books: PropTypes.arrayOf(PropTypes.object),
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     displayShelfIcon: PropTypes.bool.isRequired,
-    areBooksLoaded: PropTypes.bool.isRequired
+    areBooksLoaded: PropTypes.bool.isRequired,
+    page: PropTypes.string.isRequired
   }
 
   render() {

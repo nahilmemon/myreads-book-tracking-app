@@ -155,11 +155,13 @@ The backend API uses a fixed set of cached search results and is limited to a pa
   * [lodash.debounce npm package](https://www.npmjs.com/package/lodash.debounce)
   * [sort-by npm package](https://www.npmjs.com/package/sort-by)
   * [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
-* Tutorials
+* Tutorials/Guides
+  * [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+  * [Accessible Rich Internet Applications (WAI-ARIA) 1.1](https://www.w3.org/TR/wai-aria-1.1/)
+  * [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)
   * [Modal Window Effects](https://tympanus.net/Development/ModalWindowEffects/)
   * [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)
   * [Building an accessible Modal component with React Portals](https://assortment.io/posts/accessible-modal-component-react-portals-part-1)
-  * [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)
 * Assets
   * [Gif Empire - Loading Gear](http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php)
   * [Open Source Loading GIF Icons](https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1)
