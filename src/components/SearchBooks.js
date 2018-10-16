@@ -24,9 +24,22 @@ class SearchBooks extends Component {
     onMoveBookToNewShelf: PropTypes.func.isRequired
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.preventFormSubmission);
+  }
+
   componentWillUnmount() {
     this.searchBooksDebounced.cancel();
     this.clearQuery();
+    document.removeEventListener('keydown', this.preventFormSubmission);
+  }
+
+  // If the user pressed 'Enter' while in the search input,
+  // then prevent the page from reloading and clearing the search results
+  preventFormSubmission = (event) => {
+    if (event.key === 'Enter' && event.target === this.searchInputRef) {
+      event.preventDefault();
+    }
   }
 
   // Update the state's query and search for books accordingly
@@ -145,6 +158,7 @@ class SearchBooks extends Component {
               placeholder="Search books by title or author"
               value={this.state.query}
               onChange={(event) => this.updateQuery(event.target.value)}
+              ref={node => this.searchInputRef = node}
             />
           </div>
         </form>
