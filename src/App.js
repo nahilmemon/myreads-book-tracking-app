@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Library from './components/Library.js';
 import SearchBooks from './components/SearchBooks.js';
+import ErrorPage from './components/ErrorPage.js';
 
 class BooksApp extends React.Component {
   state = {
@@ -64,18 +65,21 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={() => (
-          <Library
-            books={this.state.books}
-            onMoveBookToNewShelf={this.moveBookToNewShelf}
-            areLibraryBooksLoaded={this.state.areLibraryBooksLoaded}
-          />
-        )}/>
-        <Route path='/search' render={() => (
-          <SearchBooks
-            onMoveBookToNewShelf={this.moveBookToNewShelf}
-          />
-        )}/>
+        <Switch>
+          <Route exact path='/' render={() => (
+            <Library
+              books={this.state.books}
+              onMoveBookToNewShelf={this.moveBookToNewShelf}
+              areLibraryBooksLoaded={this.state.areLibraryBooksLoaded}
+            />
+          )}/>
+          <Route exact path='/search' render={() => (
+            <SearchBooks
+              onMoveBookToNewShelf={this.moveBookToNewShelf}
+            />
+          )}/>
+          <Route component={ErrorPage} />
+        </Switch>
       </div>
     )
   }

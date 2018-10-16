@@ -307,6 +307,24 @@ h4 {
   background-color: var(--secondary-light-color);
 }
 
+/* ====================== Error Page ====================== */
+.error-message {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.error-message p {
+  width: 100%;
+  padding: 0 1.5em;
+}
+
+.error-message a {
+  margin: 0 1em;
+}
+
 /* ====================== Bookshelf ====================== */
 .bookshelf {
   padding: 0 10px 20px;

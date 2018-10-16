@@ -53,7 +53,7 @@ The minimum requirements of this project involved:
 
 ## Extra Features
 
-Extra features that were added to the web app included:
+Extra features that were added to the web app included doing the following:
 * Made the site accessible, such as by:
   * Using a color palette with high enough contrasts for those with lower visual acuity to view the site more easily
   * Presenting information through means not only involving color in order to take into consideration those who are color blind
@@ -72,6 +72,7 @@ Extra features that were added to the web app included:
   * The books are being retrieved to display on the main page.
   * The books are being searched on the search page.
   * The books are moving from one shelf to another on both the main page and the search page.
+* Added an error page if the user navigates to a non-existing page with link to return back to the main page and the search page.
 
 ## Project Structure
 ```bash
