@@ -17,16 +17,23 @@ class BooksApp extends React.Component {
   // with these results. Show a loading state while the books are being
   // fetched.
   componentDidMount() {
+    this._isMounted = true;
     this.retrieveLibraryBooks();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   // Get all the books in the library using the BooksAPI
   retrieveLibraryBooks() {
     // To display a loading state until the new books have arrived
-    this.setState({
-      areLibraryBooksLoaded: false,
-      books: []
-    });
+    if (this._isMounted === true) {
+      this.setState({
+        areLibraryBooksLoaded: false,
+        books: []
+      });
+    }
 
     // Fetch all the books from the user's library using the API
     BooksAPI.getAll()
@@ -36,10 +43,12 @@ class BooksApp extends React.Component {
       })
       // Update the state with the retrived books array
       .then((books) => {
-        this.setState({
-          books: books,
-          areLibraryBooksLoaded: true
-        });
+        if (this._isMounted === true) {
+          this.setState({
+            books: books,
+            areLibraryBooksLoaded: true
+          });
+        }
       })
       // Catch any errors during the process
       .catch((error) => {

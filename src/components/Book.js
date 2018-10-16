@@ -26,25 +26,36 @@ class Book extends Component {
 
   // Determine which shelf the book is on
   componentDidMount() {
+    this._isMounted = true;
     this.getShelfOfBook();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   // Figure out which shelf the book is on using the BooksAPI
   getShelfOfBook = () => {
     return BooksAPI.get(this.props.book.id)
       .then((results) => {
-        this.setState({
-          shelf: results.shelf
-        });
+        if (this._isMounted === true) {
+          this.setState({
+            shelf: results.shelf
+          });
+        }
       });
   }
 
   // Toggle shelf dropdown focus state and thus focus styling
   toggleShelfDropdownFocus = () => {
     if (this.state.isShelfDropdownFocused === true) {
-      this.setState({ isShelfDropdownFocused: false });
+      if (this._isMounted === true) {
+        this.setState({ isShelfDropdownFocused: false });
+      }
     } else {
-      this.setState({ isShelfDropdownFocused: true });
+      if (this._isMounted === true) {
+        this.setState({ isShelfDropdownFocused: true });
+      }
     }
   }
 
@@ -55,7 +66,9 @@ class Book extends Component {
 
   // Reveal the modal and disable scrolling the background
   showModal = () => {
-    this.setState({ shouldShowModal: true });
+    if (this._isMounted === true) {
+      this.setState({ shouldShowModal: true });
+    }
     this.toggleScrollingAbility();
     // Hide background content from screen readers that don't support aria-modal
     document.querySelector('#root').setAttribute('aria-hidden', true);
@@ -63,7 +76,9 @@ class Book extends Component {
 
   // Hide the modal and enable scrolling the background
   hideModal = () => {
-    this.setState({ shouldShowModal: false });
+    if (this._isMounted === true) {
+      this.setState({ shouldShowModal: false });
+    }
     this.openModalButton.focus();
     this.toggleScrollingAbility();
     // Reveal background content to screen readers that don't support aria-modal

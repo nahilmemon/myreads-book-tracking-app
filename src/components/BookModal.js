@@ -26,12 +26,14 @@ export class BookModal extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     document.addEventListener('keydown', this.handleKeyDownEvent);
     this.findFocusableElementsWithinModal();
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDownEvent);
+    this._isMounted = false;
   }
 
   handleKeyDownEvent = (event) => {
@@ -70,10 +72,12 @@ export class BookModal extends Component {
     let firstTabStopInModal = focusableElementsWithinModal[0];
     let lastTabStopInModal = focusableElementsWithinModal[focusableElementsWithinModal.length - 1];
 
-    this.setState({
-      firstTabStopInModal: firstTabStopInModal,
-      lastTabStopInModal: lastTabStopInModal
-    });
+    if (this._isMounted === true) {
+      this.setState({
+        firstTabStopInModal: firstTabStopInModal,
+        lastTabStopInModal: lastTabStopInModal
+      });
+    }
   }
 
   // Format content to display in the modal, especially in case some

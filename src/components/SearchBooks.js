@@ -25,6 +25,7 @@ class SearchBooks extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     document.addEventListener('keydown', this.preventFormSubmission);
   }
 
@@ -32,6 +33,7 @@ class SearchBooks extends Component {
     this.searchBooksDebounced.cancel();
     this.clearQuery();
     document.removeEventListener('keydown', this.preventFormSubmission);
+    this._isMounted = false;
   }
 
   // If the user pressed 'Enter' while in the search input,
@@ -45,20 +47,24 @@ class SearchBooks extends Component {
   // Update the state's query and search for books accordingly
   updateQuery = (query) => {
     // Change the state's query value to match the given query
-    this.setState({
-      query: query,
-      areSearchResultsBooksLoaded: false
-    });
+    if (this._isMounted === true) {
+      this.setState({
+        query: query,
+        areSearchResultsBooksLoaded: false
+      });
+    }
     // Search for books that match this query
     this.searchBooksDebounced(query);
   }
 
   // Clear the state's query value
   clearQuery = () => {
-    this.setState({
-      query: '',
-      bookResults: []
-    });
+    if (this._isMounted === true) {
+      this.setState({
+        query: '',
+        bookResults: []
+      });
+    }
   }
 
   // Use the BooksAPI to search for books matching the given query.
@@ -66,10 +72,12 @@ class SearchBooks extends Component {
   searchBooks = (query) => {
     // If the query is empty, then empty the bookResults array
     if (!query) {
-      this.setState({
-        bookResults: [],
-        areSearchResultsBooksLoaded: true
-      });
+      if (this._isMounted === true) {
+        this.setState({
+          bookResults: [],
+          areSearchResultsBooksLoaded: true
+        });
+      }
     }
     // Else if the query isn't empty, then try fetching the
     // books that match the query using the BooksAPI
@@ -81,17 +89,21 @@ class SearchBooks extends Component {
           // If results were found, then change the bookResults array to match
           // the results found
           if (results.length) {
-            this.setState({
-              bookResults: results,
-              areSearchResultsBooksLoaded: true
-            });
+            if (this._isMounted === true) {
+              this.setState({
+                bookResults: results,
+                areSearchResultsBooksLoaded: true
+              });
+            }
           }
           // Else empty the bookResults array to indicate no results found
           else {
-            this.setState({
-              bookResults: [],
-              areSearchResultsBooksLoaded: true
-            });
+            if (this._isMounted === true) {
+              this.setState({
+                bookResults: [],
+                areSearchResultsBooksLoaded: true
+              });
+            }
           }
         })
         // Catch any errors during the process

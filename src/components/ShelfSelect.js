@@ -21,19 +21,28 @@ class ShelfSelect extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     // If the user is on the search page, then make the dropdowns look like
     // they're loading until the shelf information for the corresponding
     // book has been retrieved
     if (this.props.page === 'search') {
-      this.setState ({ isLoaded: false});
+      if (this._isMounted === true) {
+        this.setState ({ isLoaded: false});
+      }
       this.props.getShelfOfBook()
         .then(() => {
-          this.setState ({
-            isLoaded: true,
-            shelfIcon: this.determineShelfIcon(this.props.shelfValue)
-          });
+          if (this._isMounted === true) {
+            this.setState ({
+              isLoaded: true,
+              shelfIcon: this.determineShelfIcon(this.props.shelfValue)
+            });
+          }
         });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   // Determine whether to display the shelf icon, and if so,
@@ -58,13 +67,17 @@ class ShelfSelect extends Component {
 
   moveBookToNewShelf = (modifiedBook, newShelf) => {
     // Reset loading state
-    this.setState({ isLoaded: false });
+    if (this._isMounted === true) {
+      this.setState({ isLoaded: false });
+    }
     // Move book to new shelf using the Books API
     this.props.onMoveBookToNewShelf(modifiedBook, newShelf).then(() => {
-      this.setState({
-        isLoaded: true,
-        shelfIcon: this.determineShelfIcon(newShelf)
-      });
+      if (this._isMounted === true) {
+        this.setState({
+          isLoaded: true,
+          shelfIcon: this.determineShelfIcon(newShelf)
+        });
+      }
     });
   }
 
