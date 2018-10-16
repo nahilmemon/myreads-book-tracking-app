@@ -27,7 +27,10 @@ class BookGrid extends Component {
       );
     } else {
       return (
-        <p className="message">Waiting for books to load...</p>
+        <img
+          className="message loading-gif"
+          src={`${process.env.PUBLIC_URL + '/images/loading2.gif'}`}
+          alt="Retrieving your books..." />
       );
     }
   }

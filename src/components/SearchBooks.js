@@ -115,7 +115,10 @@ class SearchBooks extends Component {
     }
     // Case B: If the search isn't complete, display loading state
     else {
-      searchResults = <p className="message">Finding books...</p>;
+      searchResults = <img
+        className="message loading-gif"
+        src={`${process.env.PUBLIC_URL + '/images/loading2.gif'}`}
+        alt="Searching for books..." />;
     }
 
     return (
