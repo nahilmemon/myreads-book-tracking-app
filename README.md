@@ -54,7 +54,24 @@ The minimum requirements of this project involved:
 ## Extra Features
 
 Extra features that were added to the web app included:
-* TBD
+* Made the site accessible, such as by:
+  * Using a color palette with high enough contrasts for those with lower visual acuity to view the site more easily
+  * Presenting information through means not only involving color in order to take into consideration those who are color blind
+  * Adding a skip link to the main to page to easily skip to the search books link instead of going through all the books and shelf changing dropdowns first
+  * Ensuring that all content-related images come with suitable alternate text which properly describes the contents of these images.
+  * Managing focus appropriately so that users can easily and noticeably tab through all the important elements on the webpage.
+  * Trapping focus only where necessary, such as in the modal, and ensuring that focus is otherwise escapable.
+  * Using semantic elements wherever appropriate.
+  * Using ARIA roles for elements that did not have a proper semantic element to define themselves.
+  * Using labels and ARIA labels where appropriate.
+* Sorted the search results alphabetically by book title.
+* Added a modal to display more details regarding each book displayed on the main page and the search page.
+* Added an icon to display which shelf each book is on when viewing books on the search page.
+* Added a message to indicate when a shelf is empty as opposed to a loading error.
+* Added loading icons to display when:
+  * The books are being retrieved to display on the main page.
+  * The books are being searched on the search page.
+  * The books are moving from one shelf to another on both the main page and the search page.
 
 ## Project Structure
 ```bash
@@ -74,13 +91,12 @@ Extra features that were added to the web app included:
     ├── components # Contains all custom components for building this app.
     │   ├── Book.js
     │   ├── BookGrid.js
-    │   └── Bookshelf.js
-    │   └── Library.js
-    │   └── SearchBooks.js
+    │   ├── BookModal.js
+    │   ├── Bookshelf.js
+    │   ├── Library.js
+    │   ├── SearchBooks.js
+    │   └── ShelfSelect.js
     ├── icons # Helpful images for the app.
-    │   ├── add.svg
-    │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
     ├── index.css # Global styles.
     └── index.js # Used or DOM rendering.
 ```
@@ -140,3 +156,6 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 * [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)
 * [Building an accessible Modal component with React Portals](https://assortment.io/posts/accessible-modal-component-react-portals-part-1)
 * [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)
+* [Gif Empire - Loading Gear](http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php)
+* [Open Source Loading GIF Icons](https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1)
+* [Material UI Icons](https://www.materialui.co/icons)

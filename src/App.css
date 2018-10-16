@@ -387,6 +387,9 @@ h4 {
   transition: all 0.25s ease-in-out;
 }
 
+/* Loading gif taken from:
+ * http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php
+ */
 .book-shelf-changer-loading {
   background-image: url('./icons/loading.gif');
   transition: all 0.25s ease-in-out;
@@ -797,3 +800,9 @@ h4 {
     margin-inline-start: 5%;
   }
 }
+
+/* Note: All icons taken from:
+ * https://www.materialui.co/icons
+ * https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1
+ * http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php
+ */

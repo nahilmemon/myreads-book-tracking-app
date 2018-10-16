@@ -26,6 +26,8 @@ class BookGrid extends Component {
         </ol>
       );
     } else {
+      // Note: this loading gif was taken from:
+      // https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1
       return (
         <img
           className="message loading-gif"
