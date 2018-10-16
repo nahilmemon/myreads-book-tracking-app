@@ -149,14 +149,18 @@ search(query)
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend provided.
 
 ## Resources Used
-
-* [Create React App](https://github.com/facebook/create-react-app)
-* [prop-types npm package](https://www.npmjs.com/package/prop-types)
-* [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
-* [Modal Window Effects](https://tympanus.net/Development/ModalWindowEffects/)
-* [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)
-* [Building an accessible Modal component with React Portals](https://assortment.io/posts/accessible-modal-component-react-portals-part-1)
-* [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)
-* [Gif Empire - Loading Gear](http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php)
-* [Open Source Loading GIF Icons](https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1)
-* [Material UI Icons](https://www.materialui.co/icons)
+* Packages/Libraries
+  * [Create React App](https://github.com/facebook/create-react-app)
+  * [prop-types npm package](https://www.npmjs.com/package/prop-types)
+  * [lodash.debounce npm package](https://www.npmjs.com/package/lodash.debounce)
+  * [sort-by npm package](https://www.npmjs.com/package/sort-by)
+  * [react-router-dom npm package](https://www.npmjs.com/package/react-router-dom)
+* Tutorials
+  * [Modal Window Effects](https://tympanus.net/Development/ModalWindowEffects/)
+  * [Implementing a Simple Modal Component in React](https://alligator.io/react/modal-component/)
+  * [Building an accessible Modal component with React Portals](https://assortment.io/posts/accessible-modal-component-react-portals-part-1)
+  * [Google and Udacity course on Accessibility: Building an Accessible Modal Dialog](https://github.com/udacity/ud891/tree/gh-pages/lesson5-semantics-aria/21-dialog)
+* Assets
+  * [Gif Empire - Loading Gear](http://gifs.duhnnae.com/2017/apr/14927052542-Science-Gears-loadinggears-loading-gear-3-3-gif.php)
+  * [Open Source Loading GIF Icons](https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1)
+  * [Material UI Icons](https://www.materialui.co/icons)
