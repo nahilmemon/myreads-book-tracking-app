@@ -6,7 +6,6 @@
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as BooksAPI from '../BooksAPI';
 import ShelfSelect from './ShelfSelect.js';
 import BookModal from './BookModal.js';
 
@@ -26,24 +25,10 @@ class Book extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    // Determine which shelf the book is on
-    this.getShelfOfBook();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
-  }
-
-  // Figure out which shelf the book is on using the BooksAPI
-  getShelfOfBook = () => {
-    return BooksAPI.get(this.props.book.id)
-      .then((results) => {
-        if (this._isMounted === true) {
-          this.setState({
-            shelf: results.shelf
-          });
-        }
-      });
   }
 
   // Toggle shelf dropdown focus state and thus focus styling
@@ -122,14 +107,6 @@ class Book extends Component {
   }
 
   render() {
-    // Determine which shelf the book is on
-    let shelfValue;
-    if (this.state.shelf === undefined) {
-      shelfValue = 'none';
-    } else {
-      shelfValue = this.state.shelf;
-    }
-
     // Determine whether to display the modal
     let modal;
     if (this.state.shouldShowModal === true) {
@@ -138,7 +115,6 @@ class Book extends Component {
         handleCloseModal={this.hideModal}
         book={this.props.book}
         thumbnail={this.determineThumbnail()}
-        shelfValue={this.state.shelf}
         onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
         toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
       >
@@ -167,13 +143,11 @@ class Book extends Component {
           <ShelfSelect
             isParentBook={true}
             book={this.props.book}
-            shelfValue={shelfValue}
             onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
             redirectShelfDropdownFocus={true}
             toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
             isShelfDropdownFocused={this.state.isShelfDropdownFocused}
             displayShelfIcon={this.props.displayShelfIcon}
-            getShelfOfBook={this.getShelfOfBook}
             page={this.props.page}
           />
         </div>

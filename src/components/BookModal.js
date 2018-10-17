@@ -18,7 +18,6 @@ export class BookModal extends Component {
   static propTypes = {
     show: PropTypes.bool.isRequired,
     handleCloseModal: PropTypes.func.isRequired,
-    shelfValue: PropTypes.string.isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     toggleShelfDropdownFocus: PropTypes.func.isRequired,
     book: PropTypes.object.isRequired,
@@ -271,7 +270,6 @@ export class BookModal extends Component {
                   <ShelfSelect
                     isParentBook={false}
                     book={this.props.book}
-                    shelfValue={this.props.shelfValue}
                     onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
                     redirectShelfDropdownFocus={false}
                     toggleShelfDropdownFocus={this.props.toggleShelfDropdownFocus}

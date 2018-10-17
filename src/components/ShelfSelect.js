@@ -12,14 +12,12 @@ class ShelfSelect extends Component {
   static propTypes = {
     isParentBook: PropTypes.bool.isRequired,
     book: PropTypes.object.isRequired,
-    shelfValue: PropTypes.string.isRequired,
     onMoveBookToNewShelf: PropTypes.func.isRequired,
     redirectShelfDropdownFocus: PropTypes.bool.isRequired,
     toggleShelfDropdownFocus: PropTypes.func.isRequired,
     isShelfDropdownFocused: PropTypes.bool,
     displayShelfIcon: PropTypes.bool,
-    page: PropTypes.string,
-    getShelfOfBook: PropTypes.func
+    page: PropTypes.string
   }
 
   componentDidMount() {
@@ -31,15 +29,12 @@ class ShelfSelect extends Component {
       if (this._isMounted === true) {
         this.setState ({ isLoaded: false});
       }
-      this.props.getShelfOfBook()
-        .then(() => {
-          if (this._isMounted === true) {
-            this.setState ({
-              isLoaded: true,
-              shelfIcon: this.determineShelfIcon(this.props.shelfValue)
-            });
-          }
+      if (this._isMounted === true) {
+        this.setState ({
+          isLoaded: true,
+          shelfIcon: this.determineShelfIcon(this.props.book.shelf)
         });
+      }
     }
   }
 
@@ -87,7 +82,7 @@ class ShelfSelect extends Component {
 
   render() {
     let select = (<select
-      value={this.props.shelfValue}
+      value={this.props.book.shelf}
       onChange={(event) => this.moveBookToNewShelf(this.props.book, event.target.value)}
       onFocus={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}
       onBlur={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}

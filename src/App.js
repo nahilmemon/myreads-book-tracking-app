@@ -71,7 +71,7 @@ class BooksApp extends React.Component {
         modifiedBook.shelf = newShelf;
         // Extract the old version of the modified book from the state's books array
         let newBooks = this.state.books.filter((book) => {
-          return book.id != modifiedBook.id;
+          return book.id !== modifiedBook.id;
         });
         // Add the new modified book to the new books array
         newBooks.push(modifiedBook);
