@@ -65,9 +65,23 @@ class BooksApp extends React.Component {
       .catch((error) => {
         console.log('Error in updating book-shelf movement: ', error);
       })
-      // Then get all the books from the server
+      // Then update the books locally to reflect this change
       .then(() => {
-        this.retrieveLibraryBooks();
+        // Locally update the modified book's shelf value
+        modifiedBook.shelf = newShelf;
+        // Extract the old version of the modified book from the state's books array
+        let newBooks = this.state.books.filter((book) => {
+          return book.id != modifiedBook.id;
+        });
+        // Add the new modified book to the new books array
+        newBooks.push(modifiedBook);
+        // Update the state with the new books array
+        if (this._isMounted === true) {
+          this.setState({
+            books: newBooks,
+            areLibraryBooksLoaded: true
+          });
+        }
       });
   }
 
