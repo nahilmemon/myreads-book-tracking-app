@@ -99,6 +99,7 @@ class BooksApp extends React.Component {
           <Route exact path='/search' render={() => (
             <SearchBooks
               onMoveBookToNewShelf={this.moveBookToNewShelf}
+              libraryBooks={this.state.books}
             />
           )}/>
           <Route component={ErrorPage} />

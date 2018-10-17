@@ -68,6 +68,29 @@ class SearchBooks extends Component {
     }
   }
 
+  // Given an array of books without shelf information,
+  // figure out the shelf information by comparing the books in this array
+  // with the books stored in the library
+  determineBookshelves = (booksWithoutShelves) => {
+    return booksWithoutShelves.map((bookWithoutShelf) => {
+      // Try to see if the bookWithoutShelf is present in the libraryBooks
+      let booksWithShelf = this.props.libraryBooks.filter((libraryBook) => {
+        return libraryBook.id === bookWithoutShelf.id;
+      });
+      // If the resulting array has a book in it, then set the shelf of
+      // bookWithoutShelf to match with the shelf of the book in the
+      // resulting array
+      if (booksWithShelf.length > 0) {
+        bookWithoutShelf.shelf = booksWithShelf[0].shelf;
+      }
+      // Otherwise, set the shelf of the bookWithoutShelf to none
+      else {
+        bookWithoutShelf.shelf = "none";
+      }
+      return bookWithoutShelf;
+    });
+  }
+
   // Use the BooksAPI to search for books matching the given query.
   // Update the state's bookResults array with the results found.
   searchBooks = (query) => {
@@ -85,14 +108,20 @@ class SearchBooks extends Component {
     else {
       // Fetch all the books using the API
       BooksAPI.search(query)
+        .catch((error) => {
+          console.log('Searching query (', query, ') error: ', error)
+        })
         // Update the state with the retrieved books array
         .then((results) => {
           // If results were found, then change the bookResults array to match
           // the results found
           if (results.length) {
+            // First modify the results to include the shelf information too
+            let resultsWithShelves = this.determineBookshelves(results);
+            // Then update the state's bookResults with these modfied results
             if (this._isMounted === true) {
               this.setState({
-                bookResults: results,
+                bookResults: resultsWithShelves,
                 areSearchResultsBooksLoaded: true
               });
             }
@@ -109,7 +138,7 @@ class SearchBooks extends Component {
         })
         // Catch any errors during the process
         .catch((error) => {
-          console.log('Searching query (', query, ') error: ', error)
+          console.log('Cannot find shelves error: ', error)
         });
     }
   }
