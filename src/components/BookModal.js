@@ -36,6 +36,7 @@ export class BookModal extends Component {
     this._isMounted = false;
   }
 
+  // To handle keydown events while the modal is open
   handleKeyDownEvent = (event) => {
     // Close the modal if the user presses the ESCAPE key
     if (event.key === 'Escape') {
@@ -82,6 +83,35 @@ export class BookModal extends Component {
 
   // Format content to display in the modal, especially in case some
   // information is missing
+  // Format a simple string
+  formatString(stringInfo) {
+    if (stringInfo) {
+      return stringInfo;
+    } else {
+      return 'Unknown';
+    }
+  }
+
+  // Format an array into a grammatically correct string of values from the array
+  formatArray(arrayInfo) {
+    // To store the final, desired string displaying all the author names
+    let stringInfo = '';
+
+    if (arrayInfo === undefined) {
+      stringInfo = 'Unknown'
+    } else if (arrayInfo.length === 1) {
+      stringInfo = arrayInfo[0]
+    } else if (arrayInfo.length === 2) {
+      stringInfo = `${arrayInfo[0]} and ${arrayInfo[1]}`
+    } else {
+      for (let i=0; i<arrayInfo.length-1; i++) {
+        stringInfo += `${arrayInfo[i]}, `;
+      }
+      stringInfo += `and ${arrayInfo[arrayInfo.length-1]}`
+    }
+
+    return stringInfo;
+  }
   // Format subtitle
   formatSubtitle() {
     if (this.props.book.subtitle) {
@@ -132,34 +162,17 @@ export class BookModal extends Component {
     }
   }
 
-  // Format a simple string
-  formatString(stringInfo) {
-    if (stringInfo) {
-      return stringInfo;
+  // Format maturity rating from snake case to normal text
+  formatMaturityRating() {
+    if (this.props.book.maturityRating) {
+      let newString = this.props.book.maturityRating.toLowerCase().split('_');
+      for (let i=0; i < newString.length; i++) {
+        newString[i] = newString[i].charAt(0).toUpperCase() + newString[i].slice(1);
+      }
+      return newString.join(' ');
     } else {
       return 'Unknown';
     }
-  }
-
-  // Format an array into a grammatically correct string of values from the array
-  formatArray(arrayInfo) {
-    // To store the final, desired string displaying all the author names
-    let stringInfo = '';
-
-    if (arrayInfo === undefined) {
-      stringInfo = 'Unknown'
-    } else if (arrayInfo.length === 1) {
-      stringInfo = arrayInfo[0]
-    } else if (arrayInfo.length === 2) {
-      stringInfo = `${arrayInfo[0]} and ${arrayInfo[1]}`
-    } else {
-      for (let i=0; i<arrayInfo.length-1; i++) {
-        stringInfo += `${arrayInfo[i]}, `;
-      }
-      stringInfo += `and ${arrayInfo[arrayInfo.length-1]}`
-    }
-
-    return stringInfo;
   }
 
   // Format preview book link
@@ -198,19 +211,6 @@ export class BookModal extends Component {
     }
   }
 
-  // Format maturity rating from snake case to normal text
-  formatMaturityRating() {
-    if (this.props.book.maturityRating) {
-      let newString = this.props.book.maturityRating.toLowerCase().split('_');
-      for (let i=0; i < newString.length; i++) {
-        newString[i] = newString[i].charAt(0).toUpperCase() + newString[i].slice(1);
-      }
-      return newString.join(' ');
-    } else {
-      return 'Unknown';
-    }
-  }
-
   render() {
     // Determine whether to show modal using CSS
     let showHideClassName;
@@ -220,6 +220,8 @@ export class BookModal extends Component {
       showHideClassName = "modal modal-effect";
     }
 
+    // Use ReactDOM.createPortal to append the modal to the end of the DOM
+    // in order to maintain a logical DOM order
     return ReactDOM.createPortal(
       (<div
         onKeyDown={(e) => this.handleKeyDownEvent(e)}
@@ -245,8 +247,9 @@ export class BookModal extends Component {
                 aria-label="Close Modal"
                 className="button-close-modal"
                 onClick={this.props.handleCloseModal}
-                ref={closeModalButton => closeModalButton && closeModalButton.focus()}
-              >×</button>
+                ref={closeModalButton => closeModalButton && closeModalButton.focus()}>
+                ×
+              </button>
             </div>
             {/* Body */}
             <div className="modal-body">
@@ -278,8 +281,11 @@ export class BookModal extends Component {
               <img
                 src={this.props.thumbnail}
                 className="modal-book-thumbnail"
-                alt={`${this.props.book.title} book cover`}/>
+                alt={`${this.props.book.title} book cover`}
+              />
               <div className="modal-book-minor-details">
+                {/* Only display the description content if there's a description
+                to display*/}
                 {this.props.book.description &&
                   <h3 className="modal-subheading">Description</h3>
                 }
@@ -295,12 +301,12 @@ export class BookModal extends Component {
         {/* Modal Overlay */}
         <div
           className="modal-overlay"
-          onClick={this.props.handleCloseModal}
-        ></div>
+          onClick={this.props.handleCloseModal}>
+        </div>
       </div>),
       document.body
     );
   }
 }
 
-export default BookModal
+export default BookModal;

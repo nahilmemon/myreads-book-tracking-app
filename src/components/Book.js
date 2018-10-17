@@ -24,9 +24,9 @@ class Book extends Component {
     page: PropTypes.string.isRequired
   }
 
-  // Determine which shelf the book is on
   componentDidMount() {
     this._isMounted = true;
+    // Determine which shelf the book is on
     this.getShelfOfBook();
   }
 
@@ -59,12 +59,13 @@ class Book extends Component {
     }
   }
 
-  // Toggle the ability to scroll the page content
+  // Toggle the ability to scroll the background page content (for when the
+  // modal is currently open)
   toggleScrollingAbility = () => {
     document.querySelector('html').classList.toggle('disable-scrolling');
   }
 
-  // Reveal the modal and disable scrolling the background
+  // Reveal the modal and disable scrolling the background page content
   showModal = () => {
     if (this._isMounted === true) {
       this.setState({ shouldShowModal: true });
@@ -79,6 +80,7 @@ class Book extends Component {
     if (this._isMounted === true) {
       this.setState({ shouldShowModal: false });
     }
+    // Return focus back to where it was before opening the modal
     this.openModalButton.focus();
     this.toggleScrollingAbility();
     // Reveal background content to screen readers that don't support aria-modal
@@ -160,8 +162,8 @@ class Book extends Component {
               width: 128,
               height: 192,
               backgroundImage: `url("${this.determineThumbnail()}")`
-            }}
-          ></button>
+            }}>
+          </button>
           <ShelfSelect
             isParentBook={true}
             book={this.props.book}
@@ -174,7 +176,6 @@ class Book extends Component {
             getShelfOfBook={this.getShelfOfBook}
             page={this.props.page}
           />
-          {/*{this.determineShelfIcon()}*/}
         </div>
         <p className="book-title">{this.props.book.title}</p>
         <p className="book-authors">{this.formatAuthors()}</p>
@@ -184,4 +185,4 @@ class Book extends Component {
   }
 }
 
-export default Book
+export default Book;

@@ -12,6 +12,7 @@ class BookGrid extends Component {
   }
 
   render() {
+    // Display the books if they have been loaded
     if (this.props.areBooksLoaded) {
       return (
         <ol className="books-grid">
@@ -26,7 +27,9 @@ class BookGrid extends Component {
           ))}
         </ol>
       );
-    } else {
+    }
+    // Otherwise, display a loading gif
+    else {
       // Note: this loading gif was taken from:
       // https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1
       return (
@@ -39,4 +42,4 @@ class BookGrid extends Component {
   }
 }
 
-export default BookGrid
+export default BookGrid;

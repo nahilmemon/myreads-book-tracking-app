@@ -12,12 +12,14 @@ class ErrorPage extends Component {
           <p>Sorry, but this page does not exist. Would you like to return to: </p>
           <Link
             to='/'
-            aria-label="Go back to homepage"
-          >Homepage</Link>
+            aria-label="Go back to homepage">
+            Homepage
+          </Link>
           <Link
             to="/search"
-            aria-label="Search for more books to add to your shelves"
-          >Search Books</Link>
+            aria-label="Search for more books to add to your shelves">
+            Search Books
+          </Link>
         </div>
       </main>
     );

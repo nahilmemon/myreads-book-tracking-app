@@ -13,11 +13,11 @@ class BooksApp extends React.Component {
     areLibraryBooksLoaded: false
   }
 
-  // Fetch all the books saved in the user's library and update the state
-  // with these results. Show a loading state while the books are being
-  // fetched.
   componentDidMount() {
     this._isMounted = true;
+    // Fetch all the books saved in the user's library and update the state
+    // with these results. Show a loading state while the books are being
+    // fetched.
     this.retrieveLibraryBooks();
   }
 
@@ -90,8 +90,8 @@ class BooksApp extends React.Component {
           <Route component={ErrorPage} />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;

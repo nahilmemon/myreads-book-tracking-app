@@ -34,4 +34,4 @@ class Bookshelf extends Component {
   }
 }
 
-export default Bookshelf
+export default Bookshelf;

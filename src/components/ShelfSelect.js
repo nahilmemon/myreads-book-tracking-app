@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 class ShelfSelect extends Component {
   state = {
+    // The loading state is initially true to prevent a loading display
+    // on the library page when the component first renders
     isLoaded: true,
     shelfIcon: ''
   }
@@ -65,6 +67,8 @@ class ShelfSelect extends Component {
     return shelfIcon;
   }
 
+  // Move the selected book to the new, desired shelf. Show a loading icon
+  // in the book shelf changer while the update takes place.
   moveBookToNewShelf = (modifiedBook, newShelf) => {
     // Reset loading state
     if (this._isMounted === true) {
@@ -89,7 +93,6 @@ class ShelfSelect extends Component {
       onBlur={this.props.redirectShelfDropdownFocus ? this.props.toggleShelfDropdownFocus : null}
       name="Move book to shelf: "
       aria-label={`Move book ${this.props.book.title} to shelf: `}>
-      {/*<option value="move" disabled>Move to...</option>*/}
       <optgroup label="Move book to shelf: ">
         <option value="currentlyReading">Currently Reading</option>
         <option value="wantToRead">Want to Read</option>
@@ -106,7 +109,9 @@ class ShelfSelect extends Component {
       } else {
         bookShelfChangerIconClasses = 'book-shelf-changer book-shelf-changer-loading';
       }
-    } else {
+    }
+    // Otherwise, display the dropdown icon
+    else {
       if (this.props.isShelfDropdownFocused) {
         bookShelfChangerIconClasses = 'book-shelf-changer focus-book-shelf-changer';
       } else {
