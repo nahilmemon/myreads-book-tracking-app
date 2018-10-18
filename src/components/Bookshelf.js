@@ -7,7 +7,7 @@ function Bookshelf(props) {
     <section className="bookshelf">
       <h2 className="bookshelf-title">{props.title}</h2>
       {props.books.length <= 0 && props.areLibraryBooksLoaded ? (
-        <p className="message">shelf is empty.</p>
+        <p className="message">Shelf is empty</p>
       ) : (
         <BookGrid
           className="bookshelf-books"
