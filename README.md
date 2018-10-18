@@ -15,7 +15,9 @@
 This is a book tracking app that lets you choose books and categorize them onto different shelves: read, want to read, and currently reading. This project was built using the React framework. An [API and client library]( https://github.com/udacity/reactnd-project-myreads-starter) was provided to help persist information as the user interacts with the app.
 
 ## How to Run the Web App
-
+### Option A
+1. Go [here](http://nahilmemon-myreads.surge.sh/) to view the app in your browser.
+### Option B
 1. Download the repository.
 2. Open a command prompt terminal and cd (change into the directory) where the repository has been saved.
 3. Install all the needed npm dependencies using the following command:
