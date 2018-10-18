@@ -25,6 +25,9 @@ class Book extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({ shelf: this.props.book.shelf });
+    }
   }
 
   componentWillUnmount() {
@@ -63,7 +66,7 @@ class Book extends Component {
   // Hide the modal and enable scrolling the background
   hideModal = () => {
     if (this._isMounted === true) {
-      this.setState({ shouldShowModal: false });
+      this.setState({ shouldShowModal: false, shelf: this.props.book.shelf });
     }
     // Return focus back to where it was before opening the modal
     this.openModalButton.focus();
@@ -117,6 +120,7 @@ class Book extends Component {
         thumbnail={this.determineThumbnail()}
         onMoveBookToNewShelf={this.props.onMoveBookToNewShelf}
         toggleShelfDropdownFocus={this.toggleShelfDropdownFocus}
+        shelf={this.state.shelf}
       >
         <p>Modal</p>
         <p>Data</p>
@@ -149,6 +153,7 @@ class Book extends Component {
             isShelfDropdownFocused={this.state.isShelfDropdownFocused}
             displayShelfIcon={this.props.displayShelfIcon}
             page={this.props.page}
+            shelf={this.state.shelf}
           />
         </div>
         <p className="book-title">{this.props.book.title}</p>

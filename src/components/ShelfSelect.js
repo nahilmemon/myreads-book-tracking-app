@@ -29,10 +29,11 @@ class ShelfSelect extends Component {
       if (this._isMounted === true) {
         this.setState ({ isLoaded: false});
       }
+      console.log(this.props.shelf);
       if (this._isMounted === true) {
         this.setState ({
           isLoaded: true,
-          shelfIcon: this.determineShelfIcon(this.props.book.shelf)
+          shelfIcon: this.determineShelfIcon(this.props.shelf)
         });
       }
     }
@@ -40,6 +41,20 @@ class ShelfSelect extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.shelf !== this.props.shelf) {
+      if (this._isMounted === true) {
+        this.setState ({ isLoaded: false});
+      }
+      if (this._isMounted === true) {
+        this.setState ({
+          isLoaded: true,
+          shelfIcon: this.determineShelfIcon(this.props.shelf)
+        });
+      }
+    }
   }
 
   // Determine whether to display the shelf icon, and if so,
